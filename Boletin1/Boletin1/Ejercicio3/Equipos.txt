@@ -2,47 +2,47 @@ Lista de caballos:
 
 Team spica:
 
-Special Week si
-Silence Suzuka si
-Tokai Teio si
-Mejiro McQueen si
-Goldship si
-Vodka si
-Daiwa Scarlet si
-Kitasan Black si
+Special Week si 4
+Silence Suzuka si 5
+Tokai Teio si 5
+Mejiro McQueen si 4
+Goldship si 4
+Vodka si 4
+Daiwa Scarlet si 4
+Kitasan Black si 4
 
 
 Team Rigil:
 
-T.M. Opera O si
-Maruzensky si
-Symboli Rudolf si
-Narita Brian si
-Taiki Shuttle si
-Fuji Kiseki si
-Hishi Amazon si 
-Air Groove si
-Grass Wonder si
-El Condor Pasa si
+T.M. Opera O si 5
+Maruzensky si 4
+Symboli Rudolf si 5
+Narita Brian si 5
+Taiki Shuttle si 4
+Fuji Kiseki si 4
+Hishi Amazon si 4
+Air Groove si 4
+Grass Wonder si 4
+El Condor Pasa si 4
 
 
 Team Cannopus:
 
-Matikanetannhauser si
-Matikanefukukitaru si
-Sounds of Earth si
-Nice Nature si
-Twin turbo si
-Ikuno Dictus si
-Royce and Royce si
+Matikanetannhauser si 4
+Matikanefukukitaru si 4
+Sounds of Earth si 4
+Nice Nature si 5
+Twin turbo si 5 
+Ikuno Dictus si 4
+Royce and Royce si 4
 
 
-Team Fosiles:
+Team Cinderella:
 
-Oguri Cap si
-Tamamo Cross si
-Inari One si
-Super Creek si
-Yaeno Muteki si
-Mejiro Ardan si
-Dicta Stricker
+Oguri Cap si 5
+Tamamo Cross si  5
+Inari One si 4
+Super Creek si 4 
+Yaeno Muteki si 4
+Mejiro Ardan si 4
+Dicta Stricker 4

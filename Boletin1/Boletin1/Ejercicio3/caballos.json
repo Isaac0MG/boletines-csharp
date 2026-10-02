@@ -1,0 +1,194 @@
+[
+    {
+        "nombre": "Special Week",
+        "rareza": 4,
+        "equipo": "Spica",
+        "rutaImagen": "Special_Week"
+    },
+    {
+        "nombre": "Silence Suzuka",
+        "rareza": 5,
+        "equipo": "Spica",
+        "rutaImagen": "Silence_Suzuka"
+    },
+    {
+        "nombre": "Tokai Teio",
+        "rareza": 5,
+        "equipo": "Spica",
+        "rutaImagen": "Tokai_Teio"
+    },
+    {
+        "nombre": "Mejiro McQueen",
+        "rareza": 4,
+        "equipo": "Spica",
+        "rutaImagen": "Mejiro_McQueen"
+    },
+    {
+        "nombre": "GoldShip",
+        "rareza": 4,
+        "equipo": "Spica",
+        "rutaImagen": "Goldship"
+    },
+    {
+        "nombre": "Vodka",
+        "rareza": 4,
+        "equipo": "Spica",
+        "rutaImagen": "Vodka"
+    },
+    {
+        "nombre": "Daiwa Scarlet",
+        "rareza": 4,
+        "equipo": "Spica",
+        "rutaImagen": "Daiwa_Scarlet"
+    },
+    {
+        "nombre": "Kitasan Black",
+        "rareza": 4,
+        "equipo": "Spica",
+        "rutaImagen": "Kitasan_Black"
+    },
+    {
+        "nombre": "T.M. Opera O",
+        "rareza": 5,
+        "equipo": "Rigil",
+        "rutaImagen": "TM_Opera_O"
+    },
+    {
+        "nombre": "Maruzensky",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "Maruzensky"
+    },
+    {
+        "nombre": "Symboli Rudolf",
+        "rareza": 5,
+        "equipo": "Rigil",
+        "rutaImagen": "Symboli_Rudolf"
+    },
+    {
+        "nombre": "Narita Brian",
+        "rareza": 5,
+        "equipo": "Rigil",
+        "rutaImagen": "Narita_Brian"
+    },
+    {
+        "nombre": "Taiki Shuttle",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "Taiki_Shuttle"
+    },
+    {
+        "nombre": "Fuji Kiseki",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "Fuji_Kiseki"
+    },
+    {
+        "nombre": "Hishi Amazon",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "Hishi_Amazon"
+    },
+    {
+        "nombre": "Air Groove",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "Air_Groove"
+    },
+    {
+        "nombre": "Grass Wonder",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "Grass_Wonder"
+    },
+    {
+        "nombre": "El Condor Pasa",
+        "rareza": 4,
+        "equipo": "Rigil",
+        "rutaImagen": "El_Condor_Pasa"
+    },
+    {
+        "nombre": "Matikanetannhauser",
+        "rareza": 4,
+        "equipo": "Cannopus",
+        "rutaImagen": "Matikanetannhauser"
+    },
+    {
+        "nombre": "Matikanefukukitaru",
+        "rareza": 4,
+        "equipo": "Cannopus",
+        "rutaImagen": "Matikanefukukitaru"
+    },
+    {
+        "nombre": "Sounds of Earth",
+        "rareza": 4,
+        "equipo": "Cannopus",
+        "rutaImagen": "Sounds_Of_Earth"
+    },
+    {
+        "nombre": "Nice Nature",
+        "rareza": 5,
+        "equipo": "Cannopus",
+        "rutaImagen": "Nice_Nature"
+    },
+    {
+        "nombre": "Twin Turbo",
+        "rareza": 5,
+        "equipo": "Cannopus",
+        "rutaImagen": "Twin_Turbo"
+    },
+    {
+        "nombre": "Ikuno Dictus",
+        "rareza": 4,
+        "equipo": "Cannopus",
+        "rutaImagen": "Ikuno_Dictus"
+    },
+    {
+        "nombre": "Royce and Royce",
+        "rareza": 4,
+        "equipo": "Cannopus",
+        "rutaImagen": "Royce_Royce"
+    },
+    {
+        "nombre": "Oguri Cap",
+        "rareza": 5,
+        "equipo": "Cinderella",
+        "rutaImagen": "Oguri_Cap"
+    },
+    {
+        "nombre": "Tamamos Cross",
+        "rareza": 5,
+        "equipo": "Cinderella",
+        "rutaImagen": "Tamamo_Cross"
+    },
+    {
+        "nombre": "Inari One",
+        "rareza": 4,
+        "equipo": "Cinderella",
+        "rutaImagen": "Inari_One"
+    },
+    {
+        "nombre": "Super Creek",
+        "rareza": 4,
+        "equipo": "Cinderella",
+        "rutaImagen": "Super_Creek"
+    },
+    {
+        "nombre": "Yaeno Muteki",
+        "rareza": 4,
+        "equipo": "Cinderella",
+        "rutaImagen": "Yaeno_Muteki"
+    },
+    {
+        "nombre": "Mejiro Ardan",
+        "rareza": 4,
+        "equipo": "Cinderella",
+        "rutaImagen": "Mejiro_Ardan"
+    },
+    {
+        "nombre": "Dicta Striker",
+        "rareza": 4,
+        "equipo": "Cinderella",
+        "rutaImagen": "Dicta_Striker"
+    }
+]

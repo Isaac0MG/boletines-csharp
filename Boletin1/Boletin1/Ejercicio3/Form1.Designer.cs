@@ -34,8 +34,8 @@
             this.lblCarats = new System.Windows.Forms.Label();
             this.btnTirar = new System.Windows.Forms.Button();
             this.lblNombre1 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblNombre2 = new System.Windows.Forms.Label();
+            this.lblNombre3 = new System.Windows.Forms.Label();
             this.pcbEstrellas2 = new System.Windows.Forms.PictureBox();
             this.pcbEstrellas1 = new System.Windows.Forms.PictureBox();
             this.pcbCaballo3 = new System.Windows.Forms.PictureBox();
@@ -43,6 +43,9 @@
             this.pcbCaballo1 = new System.Windows.Forms.PictureBox();
             this.pcbCarats = new System.Windows.Forms.PictureBox();
             this.pcbEstrellas3 = new System.Windows.Forms.PictureBox();
+            this.lblEquipo3 = new System.Windows.Forms.Label();
+            this.lblEquipo2 = new System.Windows.Forms.Label();
+            this.lblEquipo1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pcbEstrellas2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbEstrellas1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCaballo3)).BeginInit();
@@ -86,7 +89,7 @@
             // btnTirar
             // 
             this.btnTirar.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTirar.Location = new System.Drawing.Point(521, 675);
+            this.btnTirar.Location = new System.Drawing.Point(521, 696);
             this.btnTirar.Name = "btnTirar";
             this.btnTirar.Size = new System.Drawing.Size(192, 49);
             this.btnTirar.TabIndex = 4;
@@ -95,38 +98,38 @@
             // 
             // lblNombre1
             // 
-            this.lblNombre1.AutoSize = true;
             this.lblNombre1.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblNombre1.Location = new System.Drawing.Point(176, 555);
             this.lblNombre1.Name = "lblNombre1";
             this.lblNombre1.Size = new System.Drawing.Size(242, 30);
             this.lblNombre1.TabIndex = 8;
             this.lblNombre1.Text = "Matikanetannhauser";
+            this.lblNombre1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // lblNombre2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(486, 555);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(242, 30);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Matikanetannhauser";
+            this.lblNombre2.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblNombre2.Location = new System.Drawing.Point(486, 555);
+            this.lblNombre2.Name = "lblNombre2";
+            this.lblNombre2.Size = new System.Drawing.Size(242, 30);
+            this.lblNombre2.TabIndex = 9;
+            this.lblNombre2.Text = "Matikanetannhauser";
+            this.lblNombre2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblNombre3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(794, 555);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(242, 30);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Matikanetannhauser";
+            this.lblNombre3.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblNombre3.Location = new System.Drawing.Point(794, 555);
+            this.lblNombre3.Name = "lblNombre3";
+            this.lblNombre3.Size = new System.Drawing.Size(242, 30);
+            this.lblNombre3.TabIndex = 10;
+            this.lblNombre3.Text = "Matikanetannhauser";
+            this.lblNombre3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pcbEstrellas2
             // 
             this.pcbEstrellas2.Image = global::Ejercicio3.Properties.Resources.Cuatro_estrellas;
-            this.pcbEstrellas2.Location = new System.Drawing.Point(491, 600);
+            this.pcbEstrellas2.Location = new System.Drawing.Point(491, 595);
             this.pcbEstrellas2.Name = "pcbEstrellas2";
             this.pcbEstrellas2.Size = new System.Drawing.Size(237, 32);
             this.pcbEstrellas2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -136,7 +139,7 @@
             // pcbEstrellas1
             // 
             this.pcbEstrellas1.Image = global::Ejercicio3.Properties.Resources._5_estrellas;
-            this.pcbEstrellas1.Location = new System.Drawing.Point(181, 600);
+            this.pcbEstrellas1.Location = new System.Drawing.Point(181, 595);
             this.pcbEstrellas1.Name = "pcbEstrellas1";
             this.pcbEstrellas1.Size = new System.Drawing.Size(237, 32);
             this.pcbEstrellas1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -183,12 +186,42 @@
             // pcbEstrellas3
             // 
             this.pcbEstrellas3.Image = global::Ejercicio3.Properties.Resources.Cuatro_estrellas;
-            this.pcbEstrellas3.Location = new System.Drawing.Point(799, 600);
+            this.pcbEstrellas3.Location = new System.Drawing.Point(799, 595);
             this.pcbEstrellas3.Name = "pcbEstrellas3";
             this.pcbEstrellas3.Size = new System.Drawing.Size(237, 32);
             this.pcbEstrellas3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbEstrellas3.TabIndex = 13;
             this.pcbEstrellas3.TabStop = false;
+            // 
+            // lblEquipo3
+            // 
+            this.lblEquipo3.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblEquipo3.Location = new System.Drawing.Point(796, 640);
+            this.lblEquipo3.Name = "lblEquipo3";
+            this.lblEquipo3.Size = new System.Drawing.Size(242, 30);
+            this.lblEquipo3.TabIndex = 16;
+            this.lblEquipo3.Text = "Matikanetannhauser";
+            this.lblEquipo3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblEquipo2
+            // 
+            this.lblEquipo2.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblEquipo2.Location = new System.Drawing.Point(488, 640);
+            this.lblEquipo2.Name = "lblEquipo2";
+            this.lblEquipo2.Size = new System.Drawing.Size(242, 30);
+            this.lblEquipo2.TabIndex = 15;
+            this.lblEquipo2.Text = "Matikanetannhauser";
+            this.lblEquipo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblEquipo1
+            // 
+            this.lblEquipo1.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblEquipo1.Location = new System.Drawing.Point(178, 640);
+            this.lblEquipo1.Name = "lblEquipo1";
+            this.lblEquipo1.Size = new System.Drawing.Size(242, 30);
+            this.lblEquipo1.TabIndex = 14;
+            this.lblEquipo1.Text = "Matikanetannhauser";
+            this.lblEquipo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -196,11 +229,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.lblEquipo3);
+            this.Controls.Add(this.lblEquipo2);
+            this.Controls.Add(this.lblEquipo1);
             this.Controls.Add(this.pcbEstrellas3);
             this.Controls.Add(this.pcbEstrellas2);
             this.Controls.Add(this.pcbEstrellas1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblNombre3);
+            this.Controls.Add(this.lblNombre2);
             this.Controls.Add(this.lblNombre1);
             this.Controls.Add(this.pcbCaballo3);
             this.Controls.Add(this.pcbCaballo2);
@@ -238,11 +274,14 @@
         private System.Windows.Forms.PictureBox pcbCaballo2;
         private System.Windows.Forms.PictureBox pcbCaballo3;
         private System.Windows.Forms.Label lblNombre1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNombre2;
+        private System.Windows.Forms.Label lblNombre3;
         private System.Windows.Forms.PictureBox pcbEstrellas1;
         private System.Windows.Forms.PictureBox pcbEstrellas2;
         private System.Windows.Forms.PictureBox pcbEstrellas3;
+        private System.Windows.Forms.Label lblEquipo3;
+        private System.Windows.Forms.Label lblEquipo2;
+        private System.Windows.Forms.Label lblEquipo1;
     }
 }
 
