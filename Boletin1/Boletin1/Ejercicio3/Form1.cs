@@ -17,14 +17,33 @@ namespace Ejercicio3
 {
     public partial class Form1 : Form
     {
+
+        private int carats;
         private List<Uma> datos;
         private FileInfo datosCaballos;
         private string ruta;
+
+        private Uma[] umas;
+        private PictureBox[] imagenes;
+        private PictureBox[] estrellas;
+        private Label[] lblNombres;
+        private Label[] lblEquipos;
 
         public Form1()
         {
 
             InitializeComponent();
+
+            carats = 1000;
+            lblCarats.Text = carats.ToString("N0"); //N0, la N significa Number, es decir formatear como numero usando de separador los miles y el 0 es de la cantidad de decimales.
+
+            imagenes = new PictureBox[] { pcbCaballo1, pcbCaballo2, pcbCaballo3 };
+
+            estrellas = new PictureBox[] { pcbEstrellas1, pcbEstrellas2, pcbEstrellas3 };
+
+            lblNombres = new Label[] { lblNombre1, lblNombre2, lblNombre3 };
+
+            lblEquipos = new Label[] { lblEquipo1, lblEquipo2, lblEquipo3 };
 
             //El AppContext.BaseDirectory coge la ruta al .exe
             // Luego con el Path.Combine combinamos la ruta del .exe y subimos 2 carpetas para llegar al jsom
@@ -49,36 +68,37 @@ namespace Ejercicio3
 
         private void btnTirar_Click(object sender, EventArgs e)
         {
-            (int, int, int) indicesCaballos = generarTupla();
-
-            Uma uma1 = datos[indicesCaballos.Item1];
-            Uma uma2 = datos[indicesCaballos.Item2];
-            Uma uma3 = datos[indicesCaballos.Item3];
-
-            pcbCaballo1.Image = (Image)Properties.Resources.ResourceManager.GetObject(uma1.RutaImagen);
-            pcbCaballo2.Image = (Image)Properties.Resources.ResourceManager.GetObject(uma2.RutaImagen);
-            pcbCaballo3.Image = (Image)Properties.Resources.ResourceManager.GetObject(uma3.RutaImagen);
-
-            lblNombre1.Text = uma1.Nombre;
-            lblNombre2.Text = uma2.Nombre;
-            lblNombre3.Text = uma3.Nombre;
-
-            lblEquipo1.Text = uma1.Equipo;
-            lblEquipo2.Text = uma2.Equipo;
-            lblEquipo3.Text = uma3.Equipo;
-
-            Image cuatro_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("Cuatro_estrellas");
-            Image cinco_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("5_estrellas");
-
-            if (uma1.Rareza == 4)
+            if (carats >= 150)
             {
-                pcbEstrellas1.Image = cuatro_estrellas;
-                pcbCaballo1.BackColor = Color.
-            }
+                actualizarCarats(false, 150);
 
-            pcbEstrellas1.Image = uma1.Rareza == 4 ? pcbEstrellas1.Image = cuatro_estrellas : cinco_estrellas;
-            pcbEstrellas2.Image = uma2.Rareza == 4 ? pcbEstrellas2.Image = cuatro_estrellas : cinco_estrellas;
-            pcbEstrellas3.Image = uma3.Rareza == 4 ? pcbEstrellas3.Image = cuatro_estrellas : cinco_estrellas;
+                (int, int, int) indicesCaballos = generarTupla();
+
+                umas = new Uma[] { datos[indicesCaballos.Item1], datos[indicesCaballos.Item2], datos[indicesCaballos.Item3] };
+
+                Image cuatro_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("Cuatro_estrellas");
+                Image cinco_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("5_estrellas");
+
+                //ARGB = Alpha (opacidad),rgb.
+
+                Color colorCuatroEstrellas = Color.FromArgb(153, 184, 117, 208); ;
+                Color colorCincoEstrellas = Color.FromArgb(153, 218, 165, 32);
+
+                for (int i = 0; i < umas.Length; i++)
+                {
+                    imagenes[i].Image = (Image)Properties.Resources.ResourceManager.GetObject(umas[i].RutaImagen);
+                    imagenes[i].BackColor = umas[i].Rareza == 4 ? colorCuatroEstrellas : colorCincoEstrellas;
+                    lblNombres[i].Text = umas[i].Nombre;
+                    lblEquipos[i].Text = umas[i].Equipo;
+                    estrellas[i].Image = umas[i].Rareza == 4 ? cuatro_estrellas : cinco_estrellas;
+                }
+
+                calcularPremio();
+            }
+            else
+            {
+                lblWarning.Text = "No tienes suficientes carats.";
+            }
         }
 
         private (int, int, int) generarTupla()
@@ -90,6 +110,61 @@ namespace Ejercicio3
             int n3 = generador.Next(0, datos.Count());
 
             return (n1, n2, n3);
+        }
+
+        private void actualizarCarats(bool flag, int carats)
+        {
+            this.carats = flag ? this.carats + carats : this.carats - carats;
+
+            lblCarats.Text = this.carats.ToString("N0");
+        }
+
+        private void calcularPremio()
+        {
+            //POR NOMBRE
+
+            int carats = 0;
+
+            if (umas[0].Nombre == umas[1].Nombre && umas[0].Nombre == umas[2].Nombre)
+            {
+                carats += 800;
+            }
+            if (umas[0].Nombre == umas[1].Nombre || umas[0].Nombre == umas[2].Nombre || umas[1].Nombre == umas[2].Nombre)
+            {
+                carats += 300;
+            }
+
+            //POR EQUIPO
+
+            if (umas[0].Equipo == umas[1].Equipo && umas[0].Equipo == umas[2].Equipo)
+            {
+                carats += 300;
+            }
+            if (umas[0].Equipo == umas[1].Equipo || umas[0].Equipo == umas[2].Equipo || umas[1].Equipo == umas[2].Equipo)
+            {
+                carats += 100;
+            }
+
+            double multiplicador = calcularMultiplicador();
+
+            carats = (int)Math.Round(carats * multiplicador);
+
+            actualizarCarats(true, carats);
+        }
+
+        private double calcularMultiplicador()
+        {
+            double multiplicador = 1.00;
+
+            for (int i = 0; i < umas.Length; i++)
+            {
+                if (umas[i].Rareza == 5)
+                {
+                    multiplicador += 0.33;
+                }
+            }
+
+            return multiplicador;
         }
     }
 }
