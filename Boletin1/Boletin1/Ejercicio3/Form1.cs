@@ -1,40 +1,35 @@
-﻿using Ejercicio3.Properties;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace Ejercicio3
 {
     public partial class Form1 : Form
     {
-
-        private int carats;
-        private List<Uma> datos;
+        private double carats;
+        private List<Uma> caballosTotales;
         private FileInfo datosCaballos;
         private string ruta;
-
         private Uma[] umas;
         private PictureBox[] imagenes;
         private PictureBox[] estrellas;
         private Label[] lblNombres;
         private Label[] lblEquipos;
+        private Random generador;
 
         public Form1()
         {
 
             InitializeComponent();
 
+            generador = new Random();
+
             carats = 1000;
+
             lblCarats.Text = carats.ToString("N0"); //N0, la N significa Number, es decir formatear como numero usando de separador los miles y el 0 es de la cantidad de decimales.
 
             imagenes = new PictureBox[] { pcbCaballo1, pcbCaballo2, pcbCaballo3 };
@@ -59,7 +54,9 @@ namespace Ejercicio3
 
             string json = File.ReadAllText(ruta);
 
-            datos = JsonConvert.DeserializeObject<List<Uma>>(json);
+            caballosTotales = JsonConvert.DeserializeObject<List<Uma>>(json);
+
+            caballosTotales.Sort();
 
             btnTirar.Text = "Tirar x3 | 150";
             btnTirar.Image = new Bitmap(Properties.Resources.carats, 30, 28);
@@ -72,9 +69,11 @@ namespace Ejercicio3
             {
                 actualizarCarats(false, 150);
 
-                (int, int, int) indicesCaballos = generarTupla();
+                lblWarning.Text = "";
 
-                umas = new Uma[] { datos[indicesCaballos.Item1], datos[indicesCaballos.Item2], datos[indicesCaballos.Item3] };
+                var indicesCaballos = generarTupla();
+
+                umas = new Uma[] { caballosTotales[indicesCaballos.Item1], caballosTotales[indicesCaballos.Item2], caballosTotales[indicesCaballos.Item3] };
 
                 Image cuatro_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("Cuatro_estrellas");
                 Image cinco_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("5_estrellas");
@@ -103,53 +102,76 @@ namespace Ejercicio3
 
         private (int, int, int) generarTupla()
         {
-            Random generador = new Random();
 
-            int n1 = generador.Next(0, datos.Count());
-            int n2 = generador.Next(0, datos.Count());
-            int n3 = generador.Next(0, datos.Count());
+            int numeroCincoEstrellas = contarCincoEstrellas();//Indices de 5 estrellas de numeroCuatroEstrellas a caballosTotales.Count()
+            int numeroCuatroEstrellas = caballosTotales.Count() - numeroCincoEstrellas; //Indices de 4 estrellas de 0 a -1 para el ultimo indice de un 4 estrellas
 
-            return (n1, n2, n3);
+            int[] probabilidades = new int[3];
+            int[] indiceCaballo = new int[3];
+
+            for (int i = 0; i < probabilidades.Length; i++)
+            {
+                probabilidades[i] = generador.Next(1, 101);
+            }
+
+            for (int i = 0; i < indiceCaballo.Length; i++)
+            {
+                indiceCaballo[i] = probabilidades[i] > 90 ? generador.Next(numeroCuatroEstrellas, caballosTotales.Count) : generador.Next(0, numeroCuatroEstrellas);
+            }
+
+            return (indiceCaballo[0], indiceCaballo[1], indiceCaballo[2]);
         }
 
-        private void actualizarCarats(bool flag, int carats)
+        private int contarCincoEstrellas()
         {
-            this.carats = flag ? this.carats + carats : this.carats - carats;
+            int contador = 0;
 
-            lblCarats.Text = this.carats.ToString("N0");
+            foreach (Uma uma in caballosTotales)
+            {
+                contador += uma.Rareza == 5 ? 1 : 0;
+            }
+
+            return contador;
+        }
+
+        private void actualizarCarats(bool flag, double cantidad)
+        {
+            carats = flag ? carats + cantidad : carats - cantidad;
+
+            lblCarats.Text = carats.ToString("N0");
         }
 
         private void calcularPremio()
         {
             //POR NOMBRE
 
-            int carats = 0;
+            double premio = 0;
 
             if (umas[0].Nombre == umas[1].Nombre && umas[0].Nombre == umas[2].Nombre)
             {
-                carats += 800;
+                premio += 800;
             }
-            if (umas[0].Nombre == umas[1].Nombre || umas[0].Nombre == umas[2].Nombre || umas[1].Nombre == umas[2].Nombre)
+            else if (umas[0].Nombre == umas[1].Nombre || umas[0].Nombre == umas[2].Nombre || umas[1].Nombre == umas[2].Nombre)
             {
-                carats += 300;
+                premio += 300;
             }
 
             //POR EQUIPO
 
             if (umas[0].Equipo == umas[1].Equipo && umas[0].Equipo == umas[2].Equipo)
             {
-                carats += 300;
+                premio += 300;
             }
-            if (umas[0].Equipo == umas[1].Equipo || umas[0].Equipo == umas[2].Equipo || umas[1].Equipo == umas[2].Equipo)
+            else if (umas[0].Equipo == umas[1].Equipo || umas[0].Equipo == umas[2].Equipo || umas[1].Equipo == umas[2].Equipo)
             {
-                carats += 100;
+                premio += 100;
             }
 
             double multiplicador = calcularMultiplicador();
 
-            carats = (int)Math.Round(carats * multiplicador);
+            premio = premio * multiplicador;
 
-            actualizarCarats(true, carats);
+            actualizarCarats(true, premio);
         }
 
         private double calcularMultiplicador()
@@ -160,7 +182,7 @@ namespace Ejercicio3
             {
                 if (umas[i].Rareza == 5)
                 {
-                    multiplicador += 0.33;
+                    multiplicador += 0.50;
                 }
             }
 

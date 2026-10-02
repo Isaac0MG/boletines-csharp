@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ejercicio3
 {
-    internal class Uma
+    internal class Uma : IComparable<Uma>
     {
 
         private string _nombre;
@@ -40,6 +40,11 @@ namespace Ejercicio3
             this._rareza = rareza;
             this._equipo = equipo;
             this._rutaImagen = rutaImagen;
+        }
+
+        public int CompareTo(Uma otraUma)
+        {
+            return this.Rareza.CompareTo(otraUma.Rareza);
         }
     }
 }
