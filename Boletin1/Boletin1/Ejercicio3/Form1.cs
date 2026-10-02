@@ -1,8 +1,9 @@
-﻿using System;
+﻿//#define PRUEBA
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -12,8 +13,14 @@ namespace Ejercicio3
     {
         private double carats;
         private List<Uma> caballosTotales;
+        private List<Uma> caballosCuatroEstrellas;
+        private List<Uma> caballosCincoEstrellas;
         private FileInfo datosCaballos;
         private string ruta;
+        private Image cuatro_estrellas;
+        private Image cinco_estrellas;
+        private Color colorCuatroEstrellas;
+        private Color colorCincoEstrellas;
         private Uma[] umas;
         private PictureBox[] imagenes;
         private PictureBox[] estrellas;
@@ -40,6 +47,14 @@ namespace Ejercicio3
 
             lblEquipos = new Label[] { lblEquipo1, lblEquipo2, lblEquipo3 };
 
+            cuatro_estrellas = Properties.Resources.Cuatro_estrellas;
+
+            cinco_estrellas = Properties.Resources._5_estrellas;
+
+            colorCuatroEstrellas = Color.FromArgb(153, 184, 117, 208);
+
+            colorCincoEstrellas = Color.FromArgb(153, 218, 165, 32);
+
             //El AppContext.BaseDirectory coge la ruta al .exe
             // Luego con el Path.Combine combinamos la ruta del .exe y subimos 2 carpetas para llegar al jsom
             //Por ultimo escribimos el nombre del json
@@ -50,13 +65,25 @@ namespace Ejercicio3
 
             ruta = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "caballos.json"));
 
-            datosCaballos = new FileInfo(ruta);
-
             string json = File.ReadAllText(ruta);
 
             caballosTotales = JsonConvert.DeserializeObject<List<Uma>>(json);
 
-            caballosTotales.Sort();
+            caballosCuatroEstrellas = new List<Uma>();
+
+            caballosCincoEstrellas = new List<Uma>();
+
+            foreach (Uma uma in caballosTotales)
+            {
+                if (uma.Rareza == 5)
+                {
+                    caballosCincoEstrellas.Add(uma);
+                }
+                else
+                {
+                    caballosCuatroEstrellas.Add(uma);
+                }
+            }
 
             btnTirar.Text = "Tirar x3 | 150";
             btnTirar.Image = new Bitmap(Properties.Resources.carats, 30, 28);
@@ -71,17 +98,9 @@ namespace Ejercicio3
 
                 lblWarning.Text = "";
 
-                var indicesCaballos = generarTupla();
+                var umasGeneradas = generarUmas();
 
-                umas = new Uma[] { caballosTotales[indicesCaballos.Item1], caballosTotales[indicesCaballos.Item2], caballosTotales[indicesCaballos.Item3] };
-
-                Image cuatro_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("Cuatro_estrellas");
-                Image cinco_estrellas = (Image)Properties.Resources.ResourceManager.GetObject("5_estrellas");
-
-                //ARGB = Alpha (opacidad),rgb.
-
-                Color colorCuatroEstrellas = Color.FromArgb(153, 184, 117, 208); ;
-                Color colorCincoEstrellas = Color.FromArgb(153, 218, 165, 32);
+                umas = new Uma[] { umasGeneradas.Item1, umasGeneradas.Item2, umasGeneradas.Item3 };
 
                 for (int i = 0; i < umas.Length; i++)
                 {
@@ -100,43 +119,32 @@ namespace Ejercicio3
             }
         }
 
-        private (int, int, int) generarTupla()
+        private (Uma, Uma, Uma) generarUmas()
         {
 
-            int numeroCincoEstrellas = contarCincoEstrellas();//Indices de 5 estrellas de numeroCuatroEstrellas a caballosTotales.Count()
-            int numeroCuatroEstrellas = caballosTotales.Count() - numeroCincoEstrellas; //Indices de 4 estrellas de 0 a -1 para el ultimo indice de un 4 estrellas
+            int probabilidad = 0;
+            Uma[] umasTemporales = new Uma[3];
 
-            int[] probabilidades = new int[3];
-            int[] indiceCaballo = new int[3];
-
-            for (int i = 0; i < probabilidades.Length; i++)
+            for (int i = 0; i < umasTemporales.Length; i++)
             {
-                probabilidades[i] = generador.Next(1, 101);
+                probabilidad = generador.Next(1, 101);
+
+                if (probabilidad > 90)
+                {
+                    umasTemporales[i] = caballosCincoEstrellas[generador.Next(0, caballosCincoEstrellas.Count)];
+                }
+                else
+                {
+                    umasTemporales[i] = caballosCuatroEstrellas[generador.Next(0, caballosCuatroEstrellas.Count)];
+                }
             }
 
-            for (int i = 0; i < indiceCaballo.Length; i++)
-            {
-                indiceCaballo[i] = probabilidades[i] > 90 ? generador.Next(numeroCuatroEstrellas, caballosTotales.Count) : generador.Next(0, numeroCuatroEstrellas);
-            }
-
-            return (indiceCaballo[0], indiceCaballo[1], indiceCaballo[2]);
-        }
-
-        private int contarCincoEstrellas()
-        {
-            int contador = 0;
-
-            foreach (Uma uma in caballosTotales)
-            {
-                contador += uma.Rareza == 5 ? 1 : 0;
-            }
-
-            return contador;
+            return (umasTemporales[0], umasTemporales[1], umasTemporales[2]);
         }
 
         private void actualizarCarats(bool flag, double cantidad)
         {
-            carats = flag ? carats + cantidad : carats - cantidad;
+            carats = Math.Max(flag ? carats + cantidad : carats - cantidad, 0);
 
             lblCarats.Text = carats.ToString("N0");
         }
@@ -153,7 +161,11 @@ namespace Ejercicio3
             }
             else if (umas[0].Nombre == umas[1].Nombre || umas[0].Nombre == umas[2].Nombre || umas[1].Nombre == umas[2].Nombre)
             {
+#if PRUEBA
+                premio -= 300;
+#else
                 premio += 300;
+#endif
             }
 
             //POR EQUIPO
@@ -164,7 +176,11 @@ namespace Ejercicio3
             }
             else if (umas[0].Equipo == umas[1].Equipo || umas[0].Equipo == umas[2].Equipo || umas[1].Equipo == umas[2].Equipo)
             {
+#if PRUEBA
+                premio -= 100;
+#else
                 premio += 100;
+#endif
             }
 
             double multiplicador = calcularMultiplicador();

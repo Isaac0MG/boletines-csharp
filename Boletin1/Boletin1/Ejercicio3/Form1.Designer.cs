@@ -104,7 +104,6 @@
             this.lblNombre1.Name = "lblNombre1";
             this.lblNombre1.Size = new System.Drawing.Size(242, 30);
             this.lblNombre1.TabIndex = 8;
-            this.lblNombre1.Text = "Matikanetannhauser";
             this.lblNombre1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNombre2
@@ -114,7 +113,6 @@
             this.lblNombre2.Name = "lblNombre2";
             this.lblNombre2.Size = new System.Drawing.Size(242, 30);
             this.lblNombre2.TabIndex = 9;
-            this.lblNombre2.Text = "Matikanetannhauser";
             this.lblNombre2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNombre3
@@ -124,12 +122,10 @@
             this.lblNombre3.Name = "lblNombre3";
             this.lblNombre3.Size = new System.Drawing.Size(242, 30);
             this.lblNombre3.TabIndex = 10;
-            this.lblNombre3.Text = "Matikanetannhauser";
             this.lblNombre3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pcbEstrellas2
             // 
-            this.pcbEstrellas2.Image = global::Ejercicio3.Properties.Resources.Cuatro_estrellas;
             this.pcbEstrellas2.Location = new System.Drawing.Point(470, 562);
             this.pcbEstrellas2.Name = "pcbEstrellas2";
             this.pcbEstrellas2.Size = new System.Drawing.Size(237, 32);
@@ -139,7 +135,6 @@
             // 
             // pcbEstrellas1
             // 
-            this.pcbEstrellas1.Image = ((System.Drawing.Image)(resources.GetObject("pcbEstrellas1.Image")));
             this.pcbEstrellas1.Location = new System.Drawing.Point(160, 562);
             this.pcbEstrellas1.Name = "pcbEstrellas1";
             this.pcbEstrellas1.Size = new System.Drawing.Size(237, 32);
@@ -186,7 +181,6 @@
             // 
             // pcbEstrellas3
             // 
-            this.pcbEstrellas3.Image = global::Ejercicio3.Properties.Resources.Cuatro_estrellas;
             this.pcbEstrellas3.Location = new System.Drawing.Point(778, 562);
             this.pcbEstrellas3.Name = "pcbEstrellas3";
             this.pcbEstrellas3.Size = new System.Drawing.Size(237, 32);
@@ -201,7 +195,6 @@
             this.lblEquipo3.Name = "lblEquipo3";
             this.lblEquipo3.Size = new System.Drawing.Size(242, 30);
             this.lblEquipo3.TabIndex = 16;
-            this.lblEquipo3.Text = "Matikanetannhauser";
             this.lblEquipo3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblEquipo2
@@ -211,7 +204,6 @@
             this.lblEquipo2.Name = "lblEquipo2";
             this.lblEquipo2.Size = new System.Drawing.Size(242, 30);
             this.lblEquipo2.TabIndex = 15;
-            this.lblEquipo2.Text = "Matikanetannhauser";
             this.lblEquipo2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblEquipo1
@@ -221,7 +213,6 @@
             this.lblEquipo1.Name = "lblEquipo1";
             this.lblEquipo1.Size = new System.Drawing.Size(242, 30);
             this.lblEquipo1.TabIndex = 14;
-            this.lblEquipo1.Text = "Matikanetannhauser";
             this.lblEquipo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblWarning
