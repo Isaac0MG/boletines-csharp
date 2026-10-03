@@ -46,7 +46,8 @@
             this.lblEquipo3 = new System.Windows.Forms.Label();
             this.lblEquipo2 = new System.Windows.Forms.Label();
             this.lblEquipo1 = new System.Windows.Forms.Label();
-            this.lblWarning = new System.Windows.Forms.Label();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.btnAgregarCarats = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pcbEstrellas2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbEstrellas1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbCaballo3)).BeginInit();
@@ -90,7 +91,7 @@
             // btnTirar
             // 
             this.btnTirar.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTirar.Location = new System.Drawing.Point(499, 663);
+            this.btnTirar.Location = new System.Drawing.Point(499, 661);
             this.btnTirar.Name = "btnTirar";
             this.btnTirar.Size = new System.Drawing.Size(192, 49);
             this.btnTirar.TabIndex = 4;
@@ -215,15 +216,25 @@
             this.lblEquipo1.TabIndex = 14;
             this.lblEquipo1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblWarning
+            // lblInfo
             // 
-            this.lblWarning.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblWarning.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblWarning.Location = new System.Drawing.Point(2, 722);
-            this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(1181, 30);
-            this.lblWarning.TabIndex = 17;
-            this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblInfo.Font = new System.Drawing.Font("Microsoft YaHei UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblInfo.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblInfo.Location = new System.Drawing.Point(2, 720);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(1181, 30);
+            this.lblInfo.TabIndex = 17;
+            this.lblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAgregarCarats
+            // 
+            this.btnAgregarCarats.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarCarats.Location = new System.Drawing.Point(966, 661);
+            this.btnAgregarCarats.Name = "btnAgregarCarats";
+            this.btnAgregarCarats.Size = new System.Drawing.Size(190, 49);
+            this.btnAgregarCarats.TabIndex = 18;
+            this.btnAgregarCarats.UseVisualStyleBackColor = true;
+            this.btnAgregarCarats.Click += new System.EventHandler(this.btnAgregarCarats_Click);
             // 
             // Form1
             // 
@@ -231,7 +242,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.RosyBrown;
             this.ClientSize = new System.Drawing.Size(1184, 761);
-            this.Controls.Add(this.lblWarning);
+            this.Controls.Add(this.btnAgregarCarats);
+            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.lblEquipo3);
             this.Controls.Add(this.lblEquipo2);
             this.Controls.Add(this.lblEquipo1);
@@ -285,7 +297,8 @@
         private System.Windows.Forms.Label lblEquipo3;
         private System.Windows.Forms.Label lblEquipo2;
         private System.Windows.Forms.Label lblEquipo1;
-        private System.Windows.Forms.Label lblWarning;
+        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.Button btnAgregarCarats;
     }
 }
 

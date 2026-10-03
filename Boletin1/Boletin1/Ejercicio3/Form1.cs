@@ -88,6 +88,15 @@ namespace Ejercicio3
             btnTirar.Text = "Tirar x3 | 150";
             btnTirar.Image = new Bitmap(Properties.Resources.carats, 30, 28);
             btnTirar.ImageAlign = ContentAlignment.MiddleRight;
+
+            btnAgregarCarats.Text = "Agregar 500";
+            btnAgregarCarats.Image = new Bitmap(Properties.Resources.carats, 30, 28);
+            btnAgregarCarats.ImageAlign = ContentAlignment.MiddleRight;
+        }
+
+        private void btnAgregarCarats_Click(object sender, EventArgs e)
+        {
+            actualizarCarats(true, 500);
         }
 
         private void btnTirar_Click(object sender, EventArgs e)
@@ -95,8 +104,6 @@ namespace Ejercicio3
             if (carats >= 150)
             {
                 actualizarCarats(false, 150);
-
-                lblWarning.Text = "";
 
                 var umasGeneradas = generarUmas();
 
@@ -111,11 +118,17 @@ namespace Ejercicio3
                     estrellas[i].Image = umas[i].Rareza == 4 ? cuatro_estrellas : cinco_estrellas;
                 }
 
-                calcularPremio();
+                double premioGanado = calcularPremio();
+
+                actualizarCarats(true, premioGanado);
+
+                lblInfo.ForeColor = Color.Green;
+                lblInfo.Text = $"Has ganado {premioGanado} carats.";
             }
             else
             {
-                lblWarning.Text = "No tienes suficientes carats.";
+                lblInfo.ForeColor = Color.Red;
+                lblInfo.Text = "No tienes suficientes carats.";
             }
         }
 
@@ -142,6 +155,9 @@ namespace Ejercicio3
             return (umasTemporales[0], umasTemporales[1], umasTemporales[2]);
         }
 
+        //Función que actualiza el valor de carats del usuario y lo actualiza en la UI. 
+        //Si flag es true suma la cantidad y si es false resta la canitdad de carats.
+
         private void actualizarCarats(bool flag, double cantidad)
         {
             carats = Math.Max(flag ? carats + cantidad : carats - cantidad, 0);
@@ -149,7 +165,7 @@ namespace Ejercicio3
             lblCarats.Text = carats.ToString("N0");
         }
 
-        private void calcularPremio()
+        private double calcularPremio()
         {
             //POR NOMBRE
 
@@ -185,9 +201,7 @@ namespace Ejercicio3
 
             double multiplicador = calcularMultiplicador();
 
-            premio = premio * multiplicador;
-
-            actualizarCarats(true, premio);
+            return premio * multiplicador;
         }
 
         private double calcularMultiplicador()
