@@ -1,5 +1,7 @@
 ﻿#define EJERCICIO7_
 
+using System.Diagnostics;
+
 namespace EjercicioPOO
 {
     internal class App
@@ -69,6 +71,10 @@ namespace EjercicioPOO
             List<Astro> coleccionAstros = new List<Astro>();//Funciones de petición de datos real/int
             bool conversionCorrecta = true;
             int opcionUsuario = 0;
+
+            string ruta = Path.Combine(Environment.GetEnvironmentVariable("appdata"), "astros.txt");
+
+            leerFichero(coleccionAstros, ruta);
 
             do
             {
@@ -187,6 +193,12 @@ namespace EjercicioPOO
 
                         coleccionAstros.Add(p);
                         Console.WriteLine("Planeta {0} creado con éxito.\n", p.Nombre);
+
+                        using (StreamWriter escritor = new StreamWriter(ruta))
+                        {
+                            escritor.Write($"Planeta|{p.Nombre}|{p.Radio}|{p.Gaseoso}|{p.NumeroSatelites}");
+                        }
+
                         break;
                     case 2:
 
@@ -202,6 +214,11 @@ namespace EjercicioPOO
 
                         coleccionAstros.Add(c);
                         Console.WriteLine("Cometa {0} creado con éxito.\n", c.Nombre);
+
+                        using (StreamWriter escritor = new StreamWriter(ruta))
+                        {
+                            escritor.Write($"Cometa|{c.Nombre}|{c.Radio}");
+                        }
 
                         break;
                     case 3:
@@ -363,6 +380,69 @@ namespace EjercicioPOO
                     Console.WriteLine("");
                 }
             } while (flagRadio);
+        }
+
+        //los datos se guardaran en planeta|nombre|radio|gaseoso|lunas si es planeta si  es cometa solo astro|nombre|radio
+        //                            [0]     [1]   [2]    [3]    [4]                                    [0]   [1]    [2]
+
+        public static void leerFichero(List<Astro> astros, string archivo)
+        {
+
+            using (StreamReader lector = new StreamReader(archivo))
+            {
+
+                string linea = lector.ReadLine();
+
+                string nombre = "";
+
+                double radio = 0;
+
+                bool gaseoso = false;
+
+                int numeroLunas = 0;
+
+                bool astroValido = true;
+
+                while (linea != null)
+                {
+                    string[] datos = linea.Split('|');
+
+                    astroValido = true;
+
+                    if (datos[0].ToLower().Contains("planeta") && datos.Length == 5)
+                    {
+
+                        nombre = datos[0];
+
+                        if (!double.TryParse(datos[2], out radio) || !bool.TryParse(datos[3], out gaseoso) || !int.TryParse(datos[4], out numeroLunas))
+                        {
+                            astroValido = false;
+                        }
+
+                        if (astroValido)
+                        {
+                            astros.Add(new Planeta(gaseoso, numeroLunas, nombre, radio));
+                        }
+                    }
+
+                    if (datos[0].ToLower().Contains("cometa") && datos.Length == 2)
+                    {
+                        nombre = datos[1];
+
+                        if (double.TryParse(datos[2], out radio))
+                        {
+                            astroValido = false;
+                        }
+
+                        if (astroValido)
+                        {
+                            astros.Add(new Cometa(nombre, radio));
+                        }
+                    }
+
+                    linea = lector.ReadLine();
+                }
+            }
         }
     }
 }

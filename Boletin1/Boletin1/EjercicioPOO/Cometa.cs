@@ -6,6 +6,13 @@ namespace EjercicioPOO
 {
     internal class Cometa : Astro, ITerraformable
     {
+        public Cometa(string nombre, double radio) : base(nombre, radio)
+        {
+
+        }
+
+        public Cometa() { }
+
         public bool esHabitable()
         {
             return false;
