@@ -76,6 +76,8 @@ namespace EjercicioPOO
 
             leerFichero(coleccionAstros, ruta);
 
+            Console.WriteLine("Astros cargados desde el archivo \"astros.txt\" en la carpeta de Appdata.\n");
+
             do
             {
                 do
@@ -126,12 +128,17 @@ namespace EjercicioPOO
 
                             if (coleccionAstros.Count > 0)
                             {
-                                foreach (Planeta planeta in coleccionAstros)
+                                foreach (Astro astro in coleccionAstros)
                                 {
-                                    if (planeta.Equals(nombrePlaneta.ToUpper().Trim()))
+                                    if (astro is Planeta)
                                     {
-                                        nombreRepetido = true;
-                                        Console.WriteLine("\nYa existe un astro con ese nombre. Escriba otro nombre distinto.\n");
+                                        Planeta p2 = (Planeta)astro;
+
+                                        if (p2.Equals(nombrePlaneta.ToUpper().Trim()))
+                                        {
+                                            nombreRepetido = true;
+                                            Console.WriteLine("\nYa existe un astro con ese nombre. Escriba otro nombre distinto.\n");
+                                        }
                                     }
                                 }
                             }
@@ -199,6 +206,8 @@ namespace EjercicioPOO
                             escritor.Write($"Planeta|{p.Nombre}|{p.Radio}|{p.Gaseoso}|{p.NumeroSatelites}");
                         }
 
+                        Console.WriteLine("Planeta guardado en el archivo \"astros.txt\" en la carpeta Appdata.\n");
+
                         break;
                     case 2:
 
@@ -220,12 +229,13 @@ namespace EjercicioPOO
                             escritor.Write($"Cometa|{c.Nombre}|{c.Radio}");
                         }
 
+                        Console.WriteLine("Cometa guardado en el archivo \"astros.txt\" en la carpeta Appdata.\n");
+
                         break;
                     case 3:
 
                         if (coleccionAstros.Count > 0)
                         {
-
                             foreach (Astro astro in coleccionAstros)
                             {
                                 if (astro is Planeta)
@@ -412,7 +422,7 @@ namespace EjercicioPOO
                     if (datos[0].ToLower().Contains("planeta") && datos.Length == 5)
                     {
 
-                        nombre = datos[0];
+                        nombre = datos[1];
 
                         if (!double.TryParse(datos[2], out radio) || !bool.TryParse(datos[3], out gaseoso) || !int.TryParse(datos[4], out numeroLunas))
                         {
@@ -425,11 +435,11 @@ namespace EjercicioPOO
                         }
                     }
 
-                    if (datos[0].ToLower().Contains("cometa") && datos.Length == 2)
+                    if (datos[0].ToLower().Contains("cometa") && datos.Length == 3)
                     {
                         nombre = datos[1];
 
-                        if (double.TryParse(datos[2], out radio))
+                        if (!double.TryParse(datos[2], out radio))
                         {
                             astroValido = false;
                         }
