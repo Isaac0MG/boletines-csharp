@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace Acceso_Archivos_Ejercicio2
 {
@@ -39,13 +40,14 @@ namespace Acceso_Archivos_Ejercicio2
 
                                         Console.WriteLine("\n= = = FICHEROS = = =\n");
 
-                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        cambiarColor(ConsoleColor.Green);
 
                                         foreach (FileInfo a in archivos)
                                         {
                                             Console.WriteLine($"Nombre: {a.Name} - Tamaño: {a.Length} bytes.");
                                         }
-                                        Console.ForegroundColor = ConsoleColor.White;
+
+                                        cambiarColor(ConsoleColor.White);
                                     }
 
                                     if (directorios.Length > 0)
@@ -53,27 +55,35 @@ namespace Acceso_Archivos_Ejercicio2
 
                                         Console.WriteLine("\n= = = DIRECTORIOS = = =\n");
 
-                                        Console.ForegroundColor = ConsoleColor.Magenta;
+                                        cambiarColor(ConsoleColor.Magenta);
 
                                         foreach (DirectoryInfo d in directorios)
                                         {
                                             Console.WriteLine($"Nombre: {d.Name}");
                                         }
 
-                                        Console.ForegroundColor = ConsoleColor.White;
+                                        cambiarColor(ConsoleColor.White);
                                     }
                                 }
                                 catch (DirectoryNotFoundException)
                                 {
                                     Console.WriteLine("Directorio no existente.");
                                 }
-                                catch (IOException)
+                                catch (PathTooLongException)
                                 {
-                                    Console.WriteLine("El directorio no se puede leer porque está siendo usado por otro recurso.");
+                                    Console.WriteLine("La ruta es demasiado larga.");
                                 }
                                 catch (UnauthorizedAccessException)
                                 {
                                     Console.WriteLine("No tienes permisos para leer este directorio");
+                                }
+                                catch (ArgumentException)
+                                {
+                                    Console.WriteLine("No se permiten carácteres inválidos");
+                                }
+                                catch (IOException)
+                                {
+                                    Console.WriteLine("El directorio no se puede leer porque está siendo usado por otro recurso.");
                                 }
                             }
                             else
@@ -83,6 +93,7 @@ namespace Acceso_Archivos_Ejercicio2
 
                             break;
                         case "cat":
+
                             try
                             {
                                 if (args.Length == 2)
@@ -155,31 +166,149 @@ namespace Acceso_Archivos_Ejercicio2
                                 }
                                 else
                                 {
-
+                                    Console.WriteLine("Sintaxis no válida. La sintxis correcta es tool cat \"nombre_fichero\" -n numeroLineas");
                                 }
                             }
                             catch (FileNotFoundException)
                             {
                                 Console.WriteLine("No se encontro ningún archivo con ese nombre.");
                             }
-                            catch (IOException)
+                            catch (DirectoryNotFoundException)
                             {
-                                Console.WriteLine("El fichero no se puede leer porque está siendo usado por otro recurso.");
+                                Console.WriteLine("No se encontro el directorio específicado.");
+                            }
+                            catch (PathTooLongException)
+                            {
+                                Console.WriteLine("La ruta es demasiado larga.");
+                            }
+                            catch (ArgumentException)
+                            {
+                                Console.WriteLine("No se permiten carácteres inválidos");
                             }
                             catch (UnauthorizedAccessException)
                             {
                                 Console.WriteLine("No tienes permisos para leer este fichero");
                             }
+                            catch (IOException)
+                            {
+                                Console.WriteLine("El fichero no se puede leer porque está siendo usado por otro recurso.");
+                            }
+
                             break;
                         case "newfile":
 
+                            try
+                            {
+                                if (args.Length == 3) //newfile archivo texto
+                                {
 
+                                    using (StreamWriter escritor = new StreamWriter(args[1]))
+                                    {
+                                        escritor.WriteLine(args[2]);
+                                    }
+                                }
+                                else if (args.Length == 4)//newfile -a archivo texto
+                                {
+
+                                    FileInfo archivo = new FileInfo(args[2]);
+
+                                    if (args[1].Equals("-a"))
+                                    {
+                                        if (archivo.Exists)
+                                        {
+
+                                            using (StreamWriter escritor = new StreamWriter(args[2], true))
+                                            {
+                                                escritor.WriteLine(args[3]);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("No se encontro el archivo específicado.");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Subcomando no existente. La sintaxis correcta del comando es: newfile -a archivo texot");
+                                    }
+                                }
+                            }
+                            catch (DirectoryNotFoundException)
+                            {
+                                Console.WriteLine("No se encontro el directorio específicado.");
+                            }
+                            catch (FileNotFoundException)
+                            {
+                                Console.WriteLine("No se encontro el archivo específicado.");
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                Console.WriteLine("No tienes permisos para leer este fichero");
+                            }
+                            catch (PathTooLongException)
+                            {
+                                Console.WriteLine("La ruta es demasiado larga.");
+                            }
+                            catch (ArgumentException)
+                            {
+                                Console.WriteLine("No se permiten carácteres inválidos");
+                            }
 
                             break;
+
                         case "help":
 
+                            Console.WriteLine("Los posibles comandos son: \n");
 
+                            cambiarColor(ConsoleColor.Magenta);
+                            Console.Write("tool ls ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("nombreDirectorio ");
+                            Console.Write("- Muestra el contenido de un directorio.");
+                            Console.WriteLine("\n");
 
+                            cambiarColor(ConsoleColor.Magenta);
+                            Console.Write("tool cat ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("nombreFichero ");
+                            Console.Write("- Muestra el contenido de un fichero.");
+                            Console.WriteLine("\n");
+
+                            cambiarColor(ConsoleColor.Magenta);
+                            Console.Write("tool cat ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("nombreFichero ");
+                            cambiarColor(ConsoleColor.Red);
+                            Console.Write("-n ");
+                            cambiarColor(ConsoleColor.Green);
+                            Console.Write("numeroLineas ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("- Muestra una cantidad de lineas de un fichero, empezando en la línea 0 hasta la espcefícada en el parámetro.");
+                            Console.WriteLine("\n");
+
+                            cambiarColor(ConsoleColor.Magenta);
+                            Console.Write("tool newfile ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("nombreFichero ");
+                            cambiarColor(ConsoleColor.Green);
+                            Console.Write("texto ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("- Crea un fichero y le agrega el texto escrito. Si el fichero ya existiese sobreescribiría el contenido de dentro.");
+                            Console.WriteLine("\n");
+
+                            cambiarColor(ConsoleColor.Magenta);
+                            Console.Write("tool newfile ");
+                            cambiarColor(ConsoleColor.Red);
+                            Console.Write("-a ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("nombreFichero ");
+                            cambiarColor(ConsoleColor.Green);
+                            Console.Write("texto ");
+                            cambiarColor(ConsoleColor.White);
+                            Console.Write("- Agrega el texto escrito a un fichero. Si el fichero no exise no crearía uno.");
+                            Console.WriteLine();
+
+                            cambiarColor(ConsoleColor.White);
                             break;
                         default:
                             Console.WriteLine("El subcomando introducido no existe.");
@@ -193,6 +322,11 @@ namespace Acceso_Archivos_Ejercicio2
                     Console.WriteLine("Los posibles subcomandos son: ls, cat y newfile.");
                 }
             }
+        }
+
+        public static void cambiarColor(ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
         }
     }
 }

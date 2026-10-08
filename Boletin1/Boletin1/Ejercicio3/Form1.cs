@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -63,7 +64,9 @@ namespace Ejercicio3
             //Añadimos el paquete de NuGets Newtonsoft.json y luego lo importamos con using.
             //Por último usamod JsonConvert con DeserializeObject<T> (es un génerico) para leer todo el json y crear objetos de ese tipo con los datos del json.
 
-            ruta = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "caballos.json"));
+            ruta = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", ".."));
+
+            Debug.WriteLine(ruta);
 
             string json = File.ReadAllText(ruta);
 
