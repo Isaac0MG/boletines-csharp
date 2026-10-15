@@ -19,7 +19,7 @@ namespace Acceso_Archivos_Ejercicio2
             }
             else
             {
-                if (args[0].Equals("ls") || args[0].Equals("cat") || args[0].Equals("newfile") || args[0].Equals("help"))
+                if (args[0].Equals("ls") || args[0].Equals("cat") || args[0].Equals("newfile") || args[0].Equals("help"))//Esto es el default
                 {
                     switch (args[0])
                     {
@@ -103,7 +103,7 @@ namespace Acceso_Archivos_Ejercicio2
 
                                     string ruta = archivo.FullName;
 
-                                    using (StreamReader lector = new StreamReader(ruta))
+                                    using (StreamReader lector = new StreamReader(ruta)) 
                                     {
 
                                         Console.WriteLine("\n= = = CONTENIDO DEL ARCHIVO = = =\n");

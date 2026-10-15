@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Acceso_Archivos_Ejercicio2": {
+      "commandName": "Project",
+      "commandLineArgs": "cat C:\\\\Windows"
+    }
+  }
+}
