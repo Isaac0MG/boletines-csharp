@@ -7,7 +7,7 @@ namespace Programacion_Servicios_Ejercicio4
     {
         static void Main(string[] args)
         {
-            string ruta = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "archivo.txt");
+            string? ruta = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "archivo.txt");
 
             int[] carrerasGanadas = new int[0];
             string[] caballos = new string[0];
@@ -66,10 +66,7 @@ namespace Programacion_Servicios_Ejercicio4
                     {
                         Console.WriteLine("= = = LISTA DE NÚMEROS IMPARES = = =\n");
 
-                        foreach (int n in numerosImpares)
-                        {
-                            Console.Write(n + " ");
-                        }
+                        Array.ForEach(numerosImpares, n => Console.Write(n + " "));
 
                         Console.WriteLine();
                     }
@@ -121,7 +118,7 @@ namespace Programacion_Servicios_Ejercicio4
 
                     Console.WriteLine();
 
-                    //MOSTRAR NOMBRES DE CABALLO EN MAYÚSCULAS
+                    //MOSTRAR NOMBRES DE CABALLO EN MAYÚSCULAS TODO sustituir por un unic Array.ForEach
 
                     string[] caballosMayusculas = Array.FindAll(caballos, s => s == s.ToUpper());
 
@@ -129,16 +126,13 @@ namespace Programacion_Servicios_Ejercicio4
                     {
                         Console.WriteLine("= = = CABALLOS EN MAYÚSCULAS = = =\n");
 
-                        foreach (string s in caballosMayusculas)
-                        {
-                            Console.Write(s + "  ");
-                        }
+                        Array.ForEach(caballosMayusculas, s => Console.Write($"{s,20}"));
 
                         Console.WriteLine();
                     }
                     else
                     {
-                        Console.WriteLine("No se encontraron palabras en mayúsculas");
+                        Console.WriteLine("No se encontraron nombres de caballos en mayúsculas");
                     }
 
                     Console.WriteLine();
@@ -149,19 +143,35 @@ namespace Programacion_Servicios_Ejercicio4
 
                     if (caballosDiezLetraA.Length > 0)
                     {
-                        Console.WriteLine("= = = PALABRAS CON MÁS 10 CARACTERES Y SEGUNDA LETRA UNA A = = =\n");
+                        Console.WriteLine("= = = CABALLOS CON MÁS 10 CARACTERES Y SEGUNDA LETRA UNA A = = =\n");
 
-                        foreach (string s in caballosDiezLetraA)
-                        {
-                            Console.Write($"{s,20}");
-                        }
+                        Array.ForEach(caballosDiezLetraA, s => Console.Write($"{s,20}"));
+
+                        Console.WriteLine();
                     }
                     else
                     {
-                        Console.WriteLine("No se encontraron palabras con una longitud mayor que 10 carácteres y que su segunda letra sea una A.");
+                        Console.WriteLine("No se encontraron nombres de caballos con una longitud mayor que 10 carácteres y que su segunda letra sea una A.");
                     }
 
                     Console.WriteLine();
+
+                    //MOSTRAR POR PANTALLA LOS CABALLOS QUE EMPIEZAN CON LA LETRA S
+
+                    string[] caballosEmpiezanS = Array.FindAll(caballos, s => s.StartsWith("S"));
+
+                    if (caballosEmpiezanS.Length > 0)
+                    {
+                        Console.WriteLine("= = = CABALLOS QUE EMPIEZAN CON S = = =\n");
+
+                        Array.ForEach(caballosEmpiezanS, s => Console.Write($"{s,20}"));
+
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se encontraron caballos que empiecen con S.");
+                    }
 
                 }
                 else
