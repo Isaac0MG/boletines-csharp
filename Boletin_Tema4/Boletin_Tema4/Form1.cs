@@ -44,6 +44,10 @@ namespace Boletin_Tema4
                     ej3.ShowDialog();
                     break;
                 case 3:
+
+                    Ejercicio4 ej4 = new Ejercicio4();
+
+                    ej4.ShowDialog();
                     break;
                 case 4:
                     break;

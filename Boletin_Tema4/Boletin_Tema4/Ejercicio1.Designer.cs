@@ -43,6 +43,7 @@
             this.btn1.Tag = "btn1";
             this.btn1.Text = "Botón 1";
             this.btn1.UseVisualStyleBackColor = true;
+            this.btn1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Ejercicio1_MouseMove);
             // 
             // btn2
             // 
@@ -54,6 +55,7 @@
             this.btn2.Tag = "btn2";
             this.btn2.Text = "Botón 2";
             this.btn2.UseVisualStyleBackColor = true;
+            this.btn2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Ejercicio1_MouseMove);
             // 
             // Ejercicio1
             // 
@@ -64,10 +66,17 @@
             this.Controls.Add(this.btn2);
             this.Controls.Add(this.btn1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "Ejercicio1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mouse Tester";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ejercicio1_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ejercicio1_KeyDown);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Ejercicio1_MouseDown);
+            this.MouseLeave += new System.EventHandler(this.Ejercicio1_MouseLeave);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Ejercicio1_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Ejercicio1_MouseUp);
             this.ResumeLayout(false);
 
         }

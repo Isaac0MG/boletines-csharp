@@ -24,19 +24,6 @@ namespace Boletin_Tema4
         {
             InitializeComponent();
 
-            this.KeyPreview = true;
-
-            this.MouseMove += Ejercicio1_MouseMove;
-            this.MouseLeave += Ejercicio1_MouseLeave;
-            this.MouseDown += Ejercicio1_MouseDown;
-            this.MouseUp += Ejercicio1_MouseUp;
-            this.KeyDown += Ejercicio1_KeyDown;
-            this.FormClosing += Ejercicio1_FormClosing;
-
-            btn1.MouseMove += Ejercicio1_MouseMove;
-
-            btn2.MouseMove += Ejercicio1_MouseMove;
-
             X = 170;
             Y = 100;
             widthButton = 40;
@@ -50,8 +37,8 @@ namespace Boletin_Tema4
                 btn.BackColor = SystemColors.Control;
                 btn.SetBounds(X, Y, widthButton, heightButton);
                 btn.MouseMove += Ejercicio1_MouseMove;
-                btn.MouseDown += Ejercicio1_MouseDown;
-                btn.MouseUp += Ejercicio1_MouseUp;
+                btn.MouseDown += (sender, e) => btn.ForeColor = Color.Green;
+                btn.MouseUp += (sender, e) => btn.ForeColor = Color.Black;
                 btn.Tag = "botonNumero";
                 this.Controls.Add(btn);
 
@@ -69,10 +56,10 @@ namespace Boletin_Tema4
         {
             if (sender != this)
             {
-                if (sender is Button)
+                // if (sender is Button)
                 {
 
-                    Button btn = (Button)sender;
+                    Control btn = (Control)sender;
 
                     double x = e.X + btn.Left;
                     double y = e.Y + btn.Top;
@@ -88,65 +75,42 @@ namespace Boletin_Tema4
 
         private void Ejercicio1_MouseLeave(object sender, EventArgs e)
         {
-            this.Text = "X: 0 | Y: 0";
+            this.Text = "Mouse Tester";
         }
 
         private void Ejercicio1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (sender is Button)
-            {
-                Button btn = (Button)sender;
 
-                if (btn.Tag == "botonNumero")
-                {
-                    btn.ForeColor = Color.Green;
-                }
+            if (e.Button == MouseButtons.Left)
+            {
+                btn1.BackColor = Color.Green;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                btn2.BackColor = Color.Red;
             }
             else
             {
-                if (e.Button == MouseButtons.Left)
-                {
-                    btn1.BackColor = Color.Green;
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    btn2.BackColor = Color.Red;
-                }
-                else
-                {
-                    btn1.BackColor = Color.Green;
-                    btn2.BackColor = Color.Red;
-                }
+                btn1.BackColor = Color.Green;
+                btn2.BackColor = Color.Red;
             }
         }
 
         private void Ejercicio1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (sender is Button)
-            {
-                Button btn = (Button)sender;
 
-                if (btn.Tag == "botonNumero")
-                {
-                    btn.ForeColor = Color.Black;
-                }
+            if (e.Button == MouseButtons.Left)
+            {
+                btn1.BackColor = SystemColors.Control;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                btn2.BackColor = SystemColors.Control;
             }
             else
             {
-
-                if (e.Button == MouseButtons.Left)
-                {
-                    btn1.BackColor = SystemColors.Control;
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    btn2.BackColor = SystemColors.Control;
-                }
-                else
-                {
-                    btn1.BackColor = SystemColors.Control;
-                    btn2.BackColor = SystemColors.Control;
-                }
+                btn1.BackColor = SystemColors.Control;
+                btn2.BackColor = SystemColors.Control;
             }
         }
 

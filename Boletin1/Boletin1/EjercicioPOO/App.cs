@@ -130,7 +130,7 @@ namespace EjercicioPOO
                             {
                                 foreach (Astro astro in coleccionAstros)
                                 {
-                                    if (astro is Planeta)
+                                    if (astro.GetType() == typeof(Planeta))
                                     {
                                         Planeta p2 = (Planeta)astro;
 
