@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Boletin_Tema4
 {
-    public partial class Ejercicio3MostrarImagen : Form
+    public partial class Ejercicio3MostrarImagen : Form//Imagen no valida
     {
         private string rutaImagen;
 
@@ -19,9 +20,19 @@ namespace Boletin_Tema4
             InitializeComponent();
             this.Text = nombreImagen;
 
-            this.rutaImagen = rutaImagen;
-            pcbImagen.SetBounds(0, 0, this.Width, this.Height);
-            pcbImagen.Image = Image.FromFile(rutaImagen);
+            //2 EXCEPCIONES AL TRATAR CON FILES, IOEXPCEPTION Y UNAUTHORIZEDACCESS
+            //PROBAR LEER BYTE A BYTE Y DETECTAR EL TIPO DE ARCHIVO
+
+            try
+            {
+
+                this.rutaImagen = rutaImagen;
+                pcbImagen.SetBounds(0, 0, this.Width, this.Height);
+                pcbImagen.Image = Image.FromFile(rutaImagen);
+            }
+            catch (UnauthorizedAccessException e1) { }
+            catch(IOException e2) { }
+            catch(OutOfMemoryException e3) { }
 
             strechImageToolStripMenuItem.Checked = true;
         }
@@ -39,7 +50,7 @@ namespace Boletin_Tema4
                 checkedFalseItems((ToolStripMenuItem)sender);
                 strechImageToolStripMenuItem.Checked = true;
                 pcbImagen.SizeMode = PictureBoxSizeMode.StretchImage;
-                Ejercicio3MostrarImagen_Resize(this, EventArgs.Empty);
+              //  Ejercicio3MostrarImagen_Resize(this, EventArgs.Empty);
             }
         }
 
@@ -51,7 +62,7 @@ namespace Boletin_Tema4
                 checkedFalseItems((ToolStripMenuItem)sender);
                 zoomToolStripMenuItem.Checked = true;
                 pcbImagen.SizeMode = PictureBoxSizeMode.Zoom;
-                Ejercicio3MostrarImagen_Resize(this, EventArgs.Empty);
+               // Ejercicio3MostrarImagen_Resize(this, EventArgs.Empty);
             }
         }
 

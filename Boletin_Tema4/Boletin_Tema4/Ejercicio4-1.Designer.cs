@@ -32,8 +32,8 @@
             this.lblIndicesSeleccionadosLista1 = new System.Windows.Forms.Label();
             this.lblCantidadElementosLista1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.rdbTraspasarLista1 = new System.Windows.Forms.RadioButton();
+            this.rdbTraspasarLista2 = new System.Windows.Forms.RadioButton();
             this.panelEliminar = new System.Windows.Forms.Panel();
             this.rdbEliminarLista1 = new System.Windows.Forms.RadioButton();
             this.rdbEliminarLista2 = new System.Windows.Forms.RadioButton();
@@ -70,36 +70,38 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Controls.Add(this.rdbTraspasarLista1);
+            this.panel1.Controls.Add(this.rdbTraspasarLista2);
             this.panel1.Location = new System.Drawing.Point(518, 352);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 75);
             this.panel1.TabIndex = 31;
             // 
-            // radioButton2
+            // rdbTraspasarLista1
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(65, 46);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(74, 23);
-            this.radioButton2.TabIndex = 13;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Lista 2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rdbTraspasarLista1.AutoSize = true;
+            this.rdbTraspasarLista1.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbTraspasarLista1.Location = new System.Drawing.Point(65, 46);
+            this.rdbTraspasarLista1.Name = "rdbTraspasarLista1";
+            this.rdbTraspasarLista1.Size = new System.Drawing.Size(74, 23);
+            this.rdbTraspasarLista1.TabIndex = 13;
+            this.rdbTraspasarLista1.TabStop = true;
+            this.rdbTraspasarLista1.Text = "Lista 2";
+            this.rdbTraspasarLista1.UseVisualStyleBackColor = true;
+            this.rdbTraspasarLista1.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // radioButton1
+            // rdbTraspasarLista2
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(65, 15);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(74, 23);
-            this.radioButton1.TabIndex = 12;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Lista 1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rdbTraspasarLista2.AutoSize = true;
+            this.rdbTraspasarLista2.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbTraspasarLista2.Location = new System.Drawing.Point(65, 15);
+            this.rdbTraspasarLista2.Name = "rdbTraspasarLista2";
+            this.rdbTraspasarLista2.Size = new System.Drawing.Size(74, 23);
+            this.rdbTraspasarLista2.TabIndex = 12;
+            this.rdbTraspasarLista2.TabStop = true;
+            this.rdbTraspasarLista2.Text = "Lista 1";
+            this.rdbTraspasarLista2.UseVisualStyleBackColor = true;
+            this.rdbTraspasarLista2.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // panelEliminar
             // 
@@ -121,6 +123,7 @@
             this.rdbEliminarLista1.TabStop = true;
             this.rdbEliminarLista1.Text = "Lista 1";
             this.rdbEliminarLista1.UseVisualStyleBackColor = true;
+            this.rdbEliminarLista1.CheckedChanged += new System.EventHandler(this.rdbEliminarLista1_CheckedChanged);
             // 
             // rdbEliminarLista2
             // 
@@ -133,15 +136,16 @@
             this.rdbEliminarLista2.TabStop = true;
             this.rdbEliminarLista2.Text = "Lista 2";
             this.rdbEliminarLista2.UseVisualStyleBackColor = true;
+            this.rdbEliminarLista2.CheckedChanged += new System.EventHandler(this.rdbEliminarLista2_CheckedChanged);
             // 
             // txtTextoAñadir
             // 
-            this.txtTextoAñadir.Font = new System.Drawing.Font("Microsoft YaHei UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTextoAñadir.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTextoAñadir.Location = new System.Drawing.Point(83, 363);
             this.txtTextoAñadir.Multiline = true;
             this.txtTextoAñadir.Name = "txtTextoAñadir";
             this.txtTextoAñadir.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTextoAñadir.Size = new System.Drawing.Size(200, 34);
+            this.txtTextoAñadir.Size = new System.Drawing.Size(200, 58);
             this.txtTextoAñadir.TabIndex = 27;
             this.txtTextoAñadir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -194,6 +198,7 @@
             this.btnAñadir.TabIndex = 26;
             this.btnAñadir.Text = "Añadir a la lista 1";
             this.btnAñadir.UseVisualStyleBackColor = true;
+            this.btnAñadir.Click += new System.EventHandler(this.btnAñadir_Click);
             // 
             // lstCaja2
             // 
@@ -252,8 +257,8 @@
         private System.Windows.Forms.Label lblIndicesSeleccionadosLista1;
         private System.Windows.Forms.Label lblCantidadElementosLista1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton rdbTraspasarLista1;
+        private System.Windows.Forms.RadioButton rdbTraspasarLista2;
         private System.Windows.Forms.Panel panelEliminar;
         private System.Windows.Forms.RadioButton rdbEliminarLista1;
         private System.Windows.Forms.RadioButton rdbEliminarLista2;

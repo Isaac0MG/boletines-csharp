@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Odbc;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,15 +43,19 @@ namespace Boletin_Tema4
 
                     nombreImagen = ofd.SafeFileName;
 
-                    ej3Imagen = new Ejercicio3MostrarImagen(rutaImagen, nombreImagen);
+               //     if (nombreImagen.EndsWith(".png") || nombreImagen.EndsWith(".jpg"))
+                    {
 
-                    if (chkAbrirModal.Checked)
-                    {
-                        ej3Imagen.ShowDialog();
-                    }
-                    else
-                    {
-                        ej3Imagen.Show();
+                        ej3Imagen = new Ejercicio3MostrarImagen(rutaImagen, nombreImagen);
+
+                        if (chkAbrirModal.Checked)
+                        {
+                            ej3Imagen.ShowDialog();
+                        }
+                        else
+                        {
+                            ej3Imagen.Show();
+                        }
                     }
                 }
             }

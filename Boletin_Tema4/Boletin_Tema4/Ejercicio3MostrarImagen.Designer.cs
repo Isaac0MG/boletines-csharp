@@ -41,9 +41,10 @@
             // pcbImagen
             // 
             this.pcbImagen.ContextMenuStrip = this.cmsFormatoTamañoImagen;
-            this.pcbImagen.Location = new System.Drawing.Point(185, 118);
+            this.pcbImagen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pcbImagen.Location = new System.Drawing.Point(0, 0);
             this.pcbImagen.Name = "pcbImagen";
-            this.pcbImagen.Size = new System.Drawing.Size(100, 50);
+            this.pcbImagen.Size = new System.Drawing.Size(784, 461);
             this.pcbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbImagen.TabIndex = 0;
             this.pcbImagen.TabStop = false;
@@ -54,19 +55,19 @@
             this.strechImageToolStripMenuItem,
             this.zoomToolStripMenuItem});
             this.cmsFormatoTamañoImagen.Name = "cmsFormatoTamañoImagen";
-            this.cmsFormatoTamañoImagen.Size = new System.Drawing.Size(181, 70);
+            this.cmsFormatoTamañoImagen.Size = new System.Drawing.Size(141, 48);
             // 
             // strechImageToolStripMenuItem
             // 
             this.strechImageToolStripMenuItem.Name = "strechImageToolStripMenuItem";
-            this.strechImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.strechImageToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.strechImageToolStripMenuItem.Text = "StrechImage";
             this.strechImageToolStripMenuItem.Click += new System.EventHandler(this.strechImageToolStripMenuItem_Click);
             // 
             // zoomToolStripMenuItem
             // 
             this.zoomToolStripMenuItem.Name = "zoomToolStripMenuItem";
-            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zoomToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.zoomToolStripMenuItem.Text = "Zoom";
             this.zoomToolStripMenuItem.Click += new System.EventHandler(this.zoomToolStripMenuItem_Click);
             // 
