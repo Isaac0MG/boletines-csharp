@@ -81,7 +81,7 @@
             this.Name = "Ejercicio3MostrarImagen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ejercicio3MostrarImagen";
-            this.Resize += new System.EventHandler(this.Ejercicio3MostrarImagen_Resize);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ejercicio3MostrarImagen_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pcbImagen)).EndInit();
             this.cmsFormatoTamañoImagen.ResumeLayout(false);
             this.ResumeLayout(false);

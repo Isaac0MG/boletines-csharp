@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,67 +15,156 @@ namespace Boletin_Tema4
 {
     public partial class Ejercicio3MostrarImagen : Form//Imagen no valida
     {
-        private string rutaImagen;
+
+        private const int BytesCabecera = 8;
+
+        //Tiff no esta añadido como formato de imagen a pesar de que Image acepte este tipo de formato.
+        //La decisión está basada en que al ser un archivo muy grande no es comunmente usado en aplicaciones de escritorio.
+        //La solución, mostrar un aviso que diga que los formatos tiff no están aceptados y que en su caso comprima la imagen en un png o jpg.
+
+        private Dictionary<string, string> extensiones = new Dictionary<string, string>
+        {
+            {"png","89 50 4E 47 0D 0A 1A 0A"},
+            {"jpeg","FF D8"},
+            {"gif","47 49 46 38"},
+            {"bmp","42 4D"},
+        };
 
         public Ejercicio3MostrarImagen(string rutaImagen, string nombreImagen)
         {
             InitializeComponent();
             this.Text = nombreImagen;
 
-            //2 EXCEPCIONES AL TRATAR CON FILES, IOEXPCEPTION Y UNAUTHORIZEDACCESS
-            //PROBAR LEER BYTE A BYTE Y DETECTAR EL TIPO DE ARCHIVO
+            if (tieneFormatoValido(rutaImagen))
+            {
+                cargarImagen(rutaImagen);
+            }
+            else
+            {
+                MessageBox.Show("La imagen no tiene un formato válido para mostrar.", "Formato de imagen no válido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private bool tieneFormatoValido(string rutaImagen)
+        {
+            string cabeceraHex = leerCabeceraHex(rutaImagen);
+
+            if (cabeceraHex == null)
+            {
+                return false;
+            }
+
+            foreach (string s in extensiones.Values)
+            {
+                if (cabeceraHex.StartsWith(s))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private string leerCabeceraHex(string rutaImagen)
+        {
+            byte[] bytesLeidos = null;
+
+            string cabeceraHex = "";
 
             try
             {
+                using (FileStream lector = new FileStream(rutaImagen, FileMode.Open, FileAccess.Read))
+                {
+                    using (BinaryReader lectorBinario = new BinaryReader(lector))
+                    {
 
-                this.rutaImagen = rutaImagen;
-                pcbImagen.SetBounds(0, 0, this.Width, this.Height);
-                pcbImagen.Image = Image.FromFile(rutaImagen);
+                        bytesLeidos = lectorBinario.ReadBytes(BytesCabecera);
+
+                        cabeceraHex = BitConverter.ToString(bytesLeidos).Replace("-", " ");
+
+                        return cabeceraHex;
+                    }
+                }
             }
-            catch (UnauthorizedAccessException e1) { }
-            catch(IOException e2) { }
-            catch(OutOfMemoryException e3) { }
+            catch (IOException e)
+            {
+                Debug.Write(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            catch (InvalidCastException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            catch (ArgumentException e)
+            {
+                Debug.Write(e.Message);
+            }
+            catch (ObjectDisposedException e)
+            {
+                Debug.Write(e.Message);
+            }
+            catch (NotSupportedException e)
+            {
+                Debug.Write(e.Message);
+            }
 
-            strechImageToolStripMenuItem.Checked = true;
+            return null;
         }
 
-        private void Ejercicio3MostrarImagen_Resize(object sender, EventArgs e)
+        private void cargarImagen(string rutaImagen)
         {
-            pcbImagen.SetBounds(0, 0, this.Width, this.Height);
+            try
+            {
+                pcbImagen.Image = Image.FromFile(rutaImagen);
+            }
+            catch (IOException e)
+            {
+                Debug.Write(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Debug.Write(e.Message);
+            }
+            catch (OutOfMemoryException e)
+            {
+                Debug.Write(e.Message);
+            }
+        }
+
+        private void cambiarModoImagen(ToolStripMenuItem item, PictureBoxSizeMode modo)
+        {
+            foreach (ToolStripItem elemento in cmsFormatoTamañoImagen.Items)
+            {
+                ToolStripMenuItem opcion = elemento as ToolStripMenuItem;
+
+                if (opcion != null)
+                {
+                    opcion.Checked = (opcion == item);
+                }
+            }
+
+            pcbImagen.SizeMode = modo;
         }
 
         private void strechImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender.GetType() == typeof(ToolStripMenuItem))
-            {
+            cambiarModoImagen(strechImageToolStripMenuItem, PictureBoxSizeMode.StretchImage);
 
-                checkedFalseItems((ToolStripMenuItem)sender);
-                strechImageToolStripMenuItem.Checked = true;
-                pcbImagen.SizeMode = PictureBoxSizeMode.StretchImage;
-              //  Ejercicio3MostrarImagen_Resize(this, EventArgs.Empty);
-            }
         }
 
         private void zoomToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender.GetType() == typeof(ToolStripMenuItem))
-            {
-
-                checkedFalseItems((ToolStripMenuItem)sender);
-                zoomToolStripMenuItem.Checked = true;
-                pcbImagen.SizeMode = PictureBoxSizeMode.Zoom;
-               // Ejercicio3MostrarImagen_Resize(this, EventArgs.Empty);
-            }
+            cambiarModoImagen(zoomToolStripMenuItem, PictureBoxSizeMode.Zoom);
         }
 
-        private void checkedFalseItems(ToolStripMenuItem item)
+        private void Ejercicio3MostrarImagen_FormClosed(object sender, FormClosedEventArgs e)
         {
-            for (int i = 0; i < cmsFormatoTamañoImagen.Items.Count; i++)
+            if (pcbImagen.Image != null)
             {
-                if (cmsFormatoTamañoImagen.Items[i] != item)
-                {
-                    ((ToolStripMenuItem)cmsFormatoTamañoImagen.Items[i]).Checked = false;
-                }
+                pcbImagen.Image.Dispose();
             }
         }
     }
