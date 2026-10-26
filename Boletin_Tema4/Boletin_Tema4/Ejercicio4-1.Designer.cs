@@ -46,6 +46,7 @@
             this.lstCaja2 = new System.Windows.Forms.ListBox();
             this.lstCaja1 = new System.Windows.Forms.ListBox();
             this.tmrHeader = new System.Windows.Forms.Timer(this.components);
+            this.toolTipGenerico = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panelEliminar.SuspendLayout();
             this.SuspendLayout();
@@ -142,12 +143,12 @@
             // 
             this.txtTextoAñadir.Font = new System.Drawing.Font("Microsoft YaHei UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTextoAñadir.Location = new System.Drawing.Point(83, 363);
-            this.txtTextoAñadir.Multiline = true;
             this.txtTextoAñadir.Name = "txtTextoAñadir";
             this.txtTextoAñadir.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtTextoAñadir.Size = new System.Drawing.Size(200, 58);
+            this.txtTextoAñadir.Size = new System.Drawing.Size(200, 29);
             this.txtTextoAñadir.TabIndex = 27;
             this.txtTextoAñadir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTextoAñadir.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTextoAñadir_KeyDown);
             // 
             // lblLista2
             // 
@@ -178,6 +179,7 @@
             this.btnEliminar.TabIndex = 28;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnTraspasar
             // 
@@ -188,6 +190,7 @@
             this.btnTraspasar.TabIndex = 30;
             this.btnTraspasar.Text = "Traspasar";
             this.btnTraspasar.UseVisualStyleBackColor = true;
+            this.btnTraspasar.Click += new System.EventHandler(this.btnTraspasar_Click);
             // 
             // btnAñadir
             // 
@@ -213,8 +216,10 @@
             this.lstCaja1.FormattingEnabled = true;
             this.lstCaja1.Location = new System.Drawing.Point(83, 23);
             this.lstCaja1.Name = "lstCaja1";
+            this.lstCaja1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.lstCaja1.Size = new System.Drawing.Size(200, 238);
             this.lstCaja1.TabIndex = 24;
+            this.lstCaja1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstCaja1_MouseClick);
             // 
             // tmrHeader
             // 
@@ -271,5 +276,6 @@
         private System.Windows.Forms.ListBox lstCaja2;
         private System.Windows.Forms.ListBox lstCaja1;
         private System.Windows.Forms.Timer tmrHeader;
+        private System.Windows.Forms.ToolTip toolTipGenerico;
     }
 }
