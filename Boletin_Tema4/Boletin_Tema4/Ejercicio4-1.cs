@@ -134,10 +134,10 @@ namespace Boletin_Tema4
                 {
                     lstCaja1.Items.Add(lstCaja2.Items[lstCaja2.SelectedIndex]);
                     lstCaja2.Items.RemoveAt(lstCaja2.SelectedIndex);
-                    actualizarToolTip(lstCaja2, $"Cantidad de elementos: {lstCaja2.Items.Count}");
                 }
             }
 
+            actualizarToolTip(lstCaja2, $"Cantidad de elementos: {lstCaja2.Items.Count}");
             actualizarIndicadoresLista1();
         }
 
