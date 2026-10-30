@@ -148,7 +148,6 @@
             this.txtTextoAñadir.Size = new System.Drawing.Size(200, 29);
             this.txtTextoAñadir.TabIndex = 27;
             this.txtTextoAñadir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtTextoAñadir.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTextoAñadir_KeyDown);
             // 
             // lblLista2
             // 
@@ -229,6 +228,7 @@
             // 
             // Ejercicio4_1
             // 
+            this.AcceptButton = this.btnAñadir;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;

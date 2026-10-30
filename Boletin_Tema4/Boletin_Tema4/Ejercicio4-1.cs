@@ -87,6 +87,11 @@ namespace Boletin_Tema4
         {
             if (rdbEliminarLista1.Checked)
             {
+
+                //while (lstCaja1.SelectedIndex != -1)
+                //{
+                //    lstCaja1.Items.RemoveAt(lstCaja1.SelectedIndex);
+                //}
                 if (lstCaja1.Items.Count > 0)
                 {
                     for (int i = lstCaja1.SelectedIndices.Count - 1; i >= 0; i--)
@@ -122,7 +127,8 @@ namespace Boletin_Tema4
 
                     for (int i = lstCaja1.SelectedIndices.Count - 1; i >= 0; i--)
                     {
-                        lstCaja1.Items.RemoveAt(i);
+                        //lstCaja1.Items.RemoveAt(i);
+                        lstCaja1.Items.RemoveAt(lstCaja1.SelectedIndices[i]);
                     }
 
                     lstCaja1.SelectedIndex = -1;
@@ -189,14 +195,6 @@ namespace Boletin_Tema4
         private void lstCaja1_MouseClick(object sender, MouseEventArgs e)
         {
             actualizarIndicadoresLista1();
-        }
-
-        private void txtTextoAñadir_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnAñadir_Click(this, new EventArgs());
-            }
         }
 
         private void actualizarToolTip(Control control, string texto)
