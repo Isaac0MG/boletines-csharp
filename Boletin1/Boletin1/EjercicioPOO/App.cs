@@ -6,7 +6,7 @@ namespace EjercicioPOO
 {
     internal class App
     {
-        static void Main(string[] args)
+        static void Main(string[] args)//TODO crear función de guardar
         {
 
 #if EJERCICIO7
@@ -201,13 +201,6 @@ namespace EjercicioPOO
                         coleccionAstros.Add(p);
                         Console.WriteLine("Planeta {0} creado con éxito.\n", p.Nombre);
 
-                        using (StreamWriter escritor = new StreamWriter(ruta))
-                        {
-                            escritor.Write($"Planeta|{p.Nombre}|{p.Radio}|{p.Gaseoso}|{p.NumeroSatelites}");
-                        }
-
-                        Console.WriteLine("Planeta guardado en el archivo \"astros.txt\" en la carpeta Appdata.\n");
-
                         break;
                     case 2:
 
@@ -222,14 +215,8 @@ namespace EjercicioPOO
                         establecerRadio(c);
 
                         coleccionAstros.Add(c);
+
                         Console.WriteLine("Cometa {0} creado con éxito.\n", c.Nombre);
-
-                        using (StreamWriter escritor = new StreamWriter(ruta))
-                        {
-                            escritor.Write($"Cometa|{c.Nombre}|{c.Radio}");
-                        }
-
-                        Console.WriteLine("Cometa guardado en el archivo \"astros.txt\" en la carpeta Appdata.\n");
 
                         break;
                     case 3:
@@ -351,7 +338,9 @@ namespace EjercicioPOO
                         }
                         break;
                     case 6:
-                        Console.WriteLine("Has salido de la aplicación.");
+                        guardarDatos(coleccionAstros, ruta);
+                        Console.WriteLine("Astros guardados en el archivo \"astros.txt\" en la carpeta Appdata.\n");
+
                         break;
                     default:
                         Console.WriteLine("Esa opción no existe en el menú. \n");
@@ -392,66 +381,135 @@ namespace EjercicioPOO
             } while (flagRadio);
         }
 
-        //los datos se guardaran en planeta|nombre|radio|gaseoso|lunas si es planeta si  es cometa solo astro|nombre|radio
+        //los datos se guardaran como planeta|nombre|radio|gaseoso|lunas si es planeta si  es cometa solo astro|nombre|radio
+        //                            [0]     [1]   [2]    [3]    [4]                                    [0]   [1]    [2]
+
+        public static void guardarDatos(List<Astro> astros, string archivo)
+        {
+            try
+            {
+                using (StreamWriter escritor = new StreamWriter(new FileStream(archivo, FileMode.Create, FileAccess.Write)))
+                {
+                    foreach (Astro astro in astros)
+                    {
+                        if (astro is Planeta)
+                        {
+                            Planeta p = (Planeta)astro;
+
+                            escritor.WriteLine($"Planeta|{p.Nombre}|{p.Radio}|{p.Gaseoso}|{p.NumeroSatelites}");
+                        }
+                        else
+                        {
+                            Cometa c = (Cometa)astro;
+
+                            escritor.WriteLine($"Cometa|{c.Nombre}|{c.Radio}");
+                        }
+                    }
+                }
+            }
+            catch (ArgumentException e)
+            {
+                Debug.WriteLine("Error: argumento no valido");
+            }
+            catch (FileNotFoundException e)
+            {
+                Debug.WriteLine("Error: no se pudo encontrar el archivo especificado");
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Debug.WriteLine("Error: no se pudo encontrar el directorio especificado");
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Debug.WriteLine("Error: no tienes permisos para leer este recurso");
+            }
+            catch (PathTooLongException e)
+            {
+                Debug.WriteLine("Error: la ruta al archivo es demasiado larga");
+            }
+        }
+
+
+        //los datos se guardaran como planeta|nombre|radio|gaseoso|lunas si es planeta si  es cometa solo cometa|nombre|radio
         //                            [0]     [1]   [2]    [3]    [4]                                    [0]   [1]    [2]
 
         public static void leerFichero(List<Astro> astros, string archivo)
         {
-
-            using (StreamReader lector = new StreamReader(archivo))
+            //todo TRY/CACH
+            try
             {
 
-                string linea = lector.ReadLine();
-
-                string nombre = "";
-
-                double radio = 0;
-
-                bool gaseoso = false;
-
-                int numeroLunas = 0;
-
-                bool astroValido = true;
-
-                while (linea != null)
+                using (StreamReader lector = new StreamReader(archivo))
                 {
-                    string[] datos = linea.Split('|');
 
-                    astroValido = true;
+                    string linea = lector.ReadLine();
 
-                    if (datos[0].ToLower().Contains("planeta") && datos.Length == 5)
+                    string nombre = "";
+
+                    double radio = 0;
+
+                    bool gaseoso = false;
+
+                    int numeroLunas = 0;
+
+                    bool astroValido = true;
+
+                    while (linea != null)
                     {
+                        string[] datos = linea.Split('|');
 
-                        nombre = datos[1];
+                        astroValido = true;
 
-                        if (!double.TryParse(datos[2], out radio) || !bool.TryParse(datos[3], out gaseoso) || !int.TryParse(datos[4], out numeroLunas))
+                        if (datos[0].ToLower() == "planeta" && datos.Length == 5)
                         {
-                            astroValido = false;
+
+                            nombre = datos[1];
+
+                            if (!double.TryParse(datos[2], out radio) || !bool.TryParse(datos[3], out gaseoso) || !int.TryParse(datos[4], out numeroLunas))
+                            {
+                                astroValido = false;
+                            }
+
+                            if (astroValido)
+                            {
+                                astros.Add(new Planeta(gaseoso, numeroLunas, nombre, radio));
+                            }
                         }
 
-                        if (astroValido)
+                        if (datos[0].ToLower() == "cometa" && datos.Length == 3)
                         {
-                            astros.Add(new Planeta(gaseoso, numeroLunas, nombre, radio));
+                            nombre = datos[1];
+
+                            if (!double.TryParse(datos[2], out radio))
+                            {
+                                astroValido = false;
+                            }
+
+                            if (astroValido)
+                            {
+                                astros.Add(new Cometa(nombre, radio));
+                            }
                         }
+
+                        linea = lector.ReadLine();
                     }
-
-                    if (datos[0].ToLower().Contains("cometa") && datos.Length == 3)
-                    {
-                        nombre = datos[1];
-
-                        if (!double.TryParse(datos[2], out radio))
-                        {
-                            astroValido = false;
-                        }
-
-                        if (astroValido)
-                        {
-                            astros.Add(new Cometa(nombre, radio));
-                        }
-                    }
-
-                    linea = lector.ReadLine();
                 }
+            }
+            catch (ArgumentException e)
+            {
+                Debug.WriteLine("Error: argumento no valido");
+            }
+            catch (FileNotFoundException e)
+            {
+                Debug.WriteLine("Error: no se pudo encontrar el archivo especificado");
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Debug.WriteLine("Error: no se pudo encontrar el directorio especificado");
+            }
+            catch (IOException e)
+            {
+                Debug.Write("Error: error no esperado a la hora de leer el archivo");
             }
         }
     }

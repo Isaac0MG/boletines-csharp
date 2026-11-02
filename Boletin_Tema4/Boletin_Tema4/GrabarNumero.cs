@@ -20,18 +20,6 @@ namespace Boletin_Tema4
         public GrabarNumero(string numeroTelefono)
         {
             InitializeComponent();
-
-            rutaArchivo = Path.Combine(Environment.GetEnvironmentVariable("%appdata%"), "numeros.txt");
-
-            this.numeroTelefono = numeroTelefono;
-        }
-
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            if (txtNombre.Text.Trim().Length == 0 && numeroTelefono.Length == 0)
-            {
-
-            }
         }
     }
 }

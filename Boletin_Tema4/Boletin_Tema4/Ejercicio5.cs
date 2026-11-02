@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -105,6 +106,34 @@ namespace Boletin_Tema4
         private void grabarNúmeroToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GrabarNumero grabarNumero = new GrabarNumero(txtUsuario1.Text);
+            grabarNumero.ShowDialog();
+            comprobarResultado(grabarNumero.DialogResult, grabarNumero.txtNombre.Text.Trim());
+        }
+
+        private void comprobarResultado(DialogResult resultado, string nombre)
+        {
+
+            if (resultado == DialogResult.OK)
+            {
+                string numero = txtUsuario1.Text.Trim();
+
+                if (numero.Length != 0 && nombre.Length != 0)
+                {
+
+                    string ruta = Path.Combine(Environment.GetEnvironmentVariable("userprofile"), "numeros.txt");
+
+                    try
+                    {
+                        using (StreamWriter escritor = new StreamWriter(new FileStream(ruta, FileMode.Append, FileAccess.Write)))
+                        {
+                            escritor.Write(nombre + ":" + numero);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
         }
     }
 }
