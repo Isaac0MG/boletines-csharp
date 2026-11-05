@@ -37,7 +37,6 @@
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.panelNavegacionImagenes = new System.Windows.Forms.FlowLayoutPanel();
             this.lblInfo = new System.Windows.Forms.Label();
-            this.btnAjustes = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pcbImagen)).BeginInit();
             this.panelNavegacionImagenes.SuspendLayout();
@@ -69,7 +68,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pcbImagen.Location = new System.Drawing.Point(299, 12);
             this.pcbImagen.Name = "pcbImagen";
-            this.pcbImagen.Size = new System.Drawing.Size(330, 336);
+            this.pcbImagen.Size = new System.Drawing.Size(398, 336);
             this.pcbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pcbImagen.TabIndex = 3;
             this.pcbImagen.TabStop = false;
@@ -101,7 +100,7 @@
             this.panelNavegacionImagenes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panelNavegacionImagenes.Controls.Add(this.btnAnterior);
             this.panelNavegacionImagenes.Controls.Add(this.btnSiguiente);
-            this.panelNavegacionImagenes.Location = new System.Drawing.Point(541, 370);
+            this.panelNavegacionImagenes.Location = new System.Drawing.Point(609, 370);
             this.panelNavegacionImagenes.Name = "panelNavegacionImagenes";
             this.panelNavegacionImagenes.Size = new System.Drawing.Size(88, 43);
             this.panelNavegacionImagenes.TabIndex = 6;
@@ -116,22 +115,12 @@
             this.lblInfo.Size = new System.Drawing.Size(0, 17);
             this.lblInfo.TabIndex = 1;
             // 
-            // btnAjustes
-            // 
-            this.btnAjustes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAjustes.Location = new System.Drawing.Point(653, 12);
-            this.btnAjustes.Name = "btnAjustes";
-            this.btnAjustes.Size = new System.Drawing.Size(44, 44);
-            this.btnAjustes.TabIndex = 7;
-            this.btnAjustes.UseVisualStyleBackColor = true;
-            // 
             // Ejercicio6
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(709, 429);
-            this.Controls.Add(this.btnAjustes);
             this.Controls.Add(this.panelNavegacionImagenes);
             this.Controls.Add(this.pcbImagen);
             this.Controls.Add(this.lblInfo);
@@ -159,7 +148,6 @@
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.FlowLayoutPanel panelNavegacionImagenes;
         private System.Windows.Forms.Label lblInfo;
-        private System.Windows.Forms.Button btnAjustes;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

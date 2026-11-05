@@ -17,15 +17,12 @@ namespace Boletin_Tema4
     public partial class Ejercicio6 : Form
     {
         private List<Image> imagenes;
-        private List<long> tamanioArchivos;
-        private List<string> rutaImagenes;
-        private int indice;
+        private List<TagImagen> tagsImagenes;
+        private int indiceGlobal;
 
         public Ejercicio6()
         {
             InitializeComponent();
-
-            establecerIconoBotonAjustes();
 
             inicializarToolTips();
 
@@ -33,22 +30,9 @@ namespace Boletin_Tema4
 
             imagenes = new List<Image>();
 
-            tamanioArchivos = new List<long>();
+            tagsImagenes = new List<TagImagen>();
 
-            rutaImagenes = new List<string>();
-
-            indice = 0;
-        }
-
-        public void establecerIconoBotonAjustes()
-        {
-            Image imagenOriginal = Image.FromStream(new MemoryStream(Properties.Resources.ajustesIcono));
-
-            Image imagenRedimensionada = new Bitmap(imagenOriginal, new Size(32, 32));
-
-            btnAjustes.Image = imagenRedimensionada;
-
-            btnAjustes.ImageAlign = ContentAlignment.MiddleCenter;
+            indiceGlobal = 0;
         }
 
         private void btnAbrir_Click(object sender, EventArgs e)
@@ -59,7 +43,7 @@ namespace Boletin_Tema4
             {
                 mostrarImagenesPanel();
 
-                pcbImagen.Image = imagenes[indice];
+                pcbImagen.Image = imagenes[indiceGlobal];
 
                 string ruta = devolverNombreImagen();
 
@@ -84,6 +68,8 @@ namespace Boletin_Tema4
                         ".png",".jpg",".gif",".bmp"
                     };
 
+                    int indiceInterno = 0;
+
                     foreach (FileInfo archivo in archivos)
                     {
                         string extensionArchivo = archivo.Extension;
@@ -94,9 +80,9 @@ namespace Boletin_Tema4
                             {
                                 imagenes.Add(new Bitmap(tempImage));
 
-                                rutaImagenes.Add(archivo.Name);
+                                tagsImagenes.Add(new TagImagen(indiceInterno, archivo.Name, archivo.Length));
 
-                                tamanioArchivos.Add(archivo.Length);
+                                indiceInterno++;
                             }
                         }
                     }
@@ -152,10 +138,8 @@ namespace Boletin_Tema4
             {
                 PictureBox imagen = new PictureBox();
 
-                TagImagen tag = new TagImagen(i, rutaImagenes[i], tamanioArchivos[i]);
-
                 imagen.Image = imagenes[i];
-                imagen.Tag = tag;
+                imagen.Tag = tagsImagenes[i];
                 imagen.Click += imagenClick;
                 imagen.SizeMode = PictureBoxSizeMode.StretchImage;
 
@@ -183,7 +167,7 @@ namespace Boletin_Tema4
 
             pcbImagen.Image = imagenes[indice];
 
-            this.indice = indice;
+            this.indiceGlobal = indice;
 
             string nombre = tag.GetNombreImagen();
 
@@ -194,7 +178,7 @@ namespace Boletin_Tema4
 
         public void siguienteImagen(object sender, EventArgs e)
         {
-            pcbImagen.Image = imagenes[indice = ++indice >= imagenes.Count ? 0 : indice++];
+            pcbImagen.Image = imagenes[indiceGlobal = ++indiceGlobal >= imagenes.Count ? 0 : indiceGlobal++];
 
             string nombre = devolverNombreImagen();
 
@@ -205,7 +189,7 @@ namespace Boletin_Tema4
 
         public void anteriorImagen(object sender, EventArgs e)
         {
-            pcbImagen.Image = imagenes[indice = --indice < 0 ? imagenes.Count - 1 : indice--];
+            pcbImagen.Image = imagenes[indiceGlobal = --indiceGlobal < 0 ? imagenes.Count - 1 : indiceGlobal--];
 
             string nombre = devolverNombreImagen();
 
@@ -245,29 +229,24 @@ namespace Boletin_Tema4
 
         public string devolverNombreImagen()
         {
-            PictureBox pcb = panelImagenes.Controls[indice] as PictureBox;
+            string nombre = tagsImagenes[indiceGlobal].GetNombreImagen();
 
-            TagImagen tag = pcb.Tag as TagImagen;
+            nombre = nombre.Length > 40 ? nombre.Substring(0, 40) + "..." : nombre;
 
-            string ruta = tag.GetNombreImagen();
-
-            return ruta;
+            return nombre;
         }
 
         public long devolverTamanioImagen()
         {
-            PictureBox pcb = panelImagenes.Controls[indice] as PictureBox;
 
-            TagImagen tag = pcb.Tag as TagImagen;
-
-            long tamanio = tag.getTamanioBytes();
+            long tamanio = tagsImagenes[indiceGlobal].getTamanioBytes();
 
             return tamanio;
         }
 
         public void actualizarInfoImagen()
         {
-            Image imagen = imagenes[indice];
+            Image imagen = imagenes[indiceGlobal];
 
             double tamanioImagen = devolverTamanioImagen() / 1024.0;
 
