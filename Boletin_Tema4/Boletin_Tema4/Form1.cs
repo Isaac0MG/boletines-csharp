@@ -56,6 +56,10 @@ namespace Boletin_Tema4
                     ej5.ShowDialog();
                     break;
                 case 5:
+
+                    Ejercicio6 ej6 = new Ejercicio6();
+
+                    ej6.ShowDialog();
                     break;
                 case 6:
                     break;

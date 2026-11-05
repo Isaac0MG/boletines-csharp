@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace Boletin_Tema4
             //};
 
             simbolosTeclado = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#" };
+            //string tec = "123456789*0#";
 
             int x = CoordenadaX;
             int y = CoordenadaY;
@@ -60,7 +62,8 @@ namespace Boletin_Tema4
                 };
                 btn.MouseEnter += (sender, e) =>
                 {
-                    btn.BackColor = colorAlEntrar;
+                    if (btn.BackColor != colorAlPresionar)
+                        btn.BackColor = colorAlEntrar;
                 };
                 btn.MouseLeave += (sender, e) =>
                 {
@@ -105,9 +108,14 @@ namespace Boletin_Tema4
 
         private void grabarNúmeroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GrabarNumero grabarNumero = new GrabarNumero(txtUsuario1.Text);
-            grabarNumero.ShowDialog();
-            comprobarResultado(grabarNumero.DialogResult, grabarNumero.txtNombre.Text.Trim());
+            string numero = txtUsuario1.Text.Trim();
+
+            if (numero.Length != 0)
+            {
+                GrabarNumero grabarNumero = new GrabarNumero(numero);
+                grabarNumero.ShowDialog();
+                comprobarResultado(grabarNumero.DialogResult, grabarNumero.txtNombre.Text.Trim());
+            }
         }
 
         private void comprobarResultado(DialogResult resultado, string nombre)
@@ -126,14 +134,67 @@ namespace Boletin_Tema4
                     {
                         using (StreamWriter escritor = new StreamWriter(new FileStream(ruta, FileMode.Append, FileAccess.Write)))
                         {
-                            escritor.Write(nombre + ":" + numero);
+                            escritor.WriteLine(nombre + ":" + numero);
                         }
                     }
-                    catch (Exception ex)
+                    catch (ArgumentException e)
                     {
+                        Debug.WriteLine("Error: argumento no válido");
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        Debug.WriteLine("Error: archivo no encontrado");
+                    }
+                    catch (DirectoryNotFoundException)
+                    {
+                        Debug.WriteLine("Error: directorio no encontrado");
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        Debug.WriteLine("Error: no tienes permisos para leer el archivo");
+                    }
+                    catch (PathTooLongException)
+                    {
+                        Debug.WriteLine("Error: ruta demasiado larga al archivo.");
+                    }
+                    catch (IOException)
+                    {
+                        Debug.WriteLine("Error al leer el archivo.");
                     }
                 }
             }
+        }
+
+        private void mostrarAgendaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VerNumeros verNumeros = Application.OpenForms.OfType<VerNumeros>().FirstOrDefault();
+
+            if (verNumeros != null)
+            {
+                verNumeros.BringToFront();
+                verNumeros.Focus();
+            }
+            else
+            {
+                verNumeros = new VerNumeros();
+                verNumeros.Show();
+            }
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string mensajeInfo = "Creador: Isaac Míguez García\n" +
+                "Formulario principal: incluye un textbox para introducir un número mediante las teclas que se muestran por pantalla o escribiendolas desde el teclado. Una vez escrito un número en el menú existe una opción para grabar el número en un archivo de texto.\n" +
+                "Debajo de grabar número está la opción para ver los números guardados en un formato de 2 columnas. Solo se puede tener un formulario de este tipo abierto al mismo tiempo.\n" +
+                "Tanto en el propio formulario principal como en el menú existe un botón de reset que limpia el formulario principal.\n" +
+                "Por último, para salir de la app pulse la opcioón salir en el menú.";
+
+            MessageBox.Show(mensajeInfo, "Info de la app", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
     }
 }

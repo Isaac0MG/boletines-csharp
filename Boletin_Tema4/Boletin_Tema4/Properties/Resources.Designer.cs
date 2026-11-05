@@ -63,6 +63,16 @@ namespace Boletin_Tema4.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] ajustesIcono {
+            get {
+                object obj = ResourceManager.GetObject("ajustesIcono", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] javaMascota1 {
             get {
                 object obj = ResourceManager.GetObject("javaMascota1", resourceCulture);

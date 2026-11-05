@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerNumeros));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtMostrarNumeros = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txtMostrarNumeros
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(584, 361);
-            this.textBox1.TabIndex = 0;
+            this.txtMostrarNumeros.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMostrarNumeros.Location = new System.Drawing.Point(0, 0);
+            this.txtMostrarNumeros.Multiline = true;
+            this.txtMostrarNumeros.Name = "txtMostrarNumeros";
+            this.txtMostrarNumeros.ReadOnly = true;
+            this.txtMostrarNumeros.Size = new System.Drawing.Size(584, 361);
+            this.txtMostrarNumeros.TabIndex = 0;
             // 
             // VerNumeros
             // 
@@ -48,13 +48,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(584, 361);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtMostrarNumeros);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VerNumeros";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "VerNumeros";
+            this.Text = "Ver numeros";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -62,6 +62,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMostrarNumeros;
     }
 }
