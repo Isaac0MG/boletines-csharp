@@ -8,21 +8,21 @@ namespace Boletin_Tema4
 {
     internal class TagImagen
     {
-        private int indice;
+        private int indiceInterno;
         private string nombreImagen;
 
         private long tamanioBytes;
 
         public TagImagen(int indice, string ruta, long tamanioBytes)
         {
-            this.indice = indice;
+            this.indiceInterno = indice;
             this.nombreImagen = ruta;
             this.tamanioBytes = tamanioBytes;
         }
 
-        public int GetIndice()
+        public int GetIndiceInterno()
         {
-            return this.indice;
+            return this.indiceInterno;
         }
 
         public string GetNombreImagen()

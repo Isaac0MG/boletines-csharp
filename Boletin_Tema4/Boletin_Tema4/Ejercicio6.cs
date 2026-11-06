@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace Boletin_Tema4
 {
-    public partial class Ejercicio6 : Form
+    public partial class Ejercicio6 : Form //Control de botonoes si no hay imagenes. Control de uimagen corrupta. Abrir nuevos directorios.
     {
         private List<Image> imagenes;
         private List<TagImagen> tagsImagenes;
@@ -32,11 +32,15 @@ namespace Boletin_Tema4
 
             tagsImagenes = new List<TagImagen>();
 
+            manejarBoton(btnSiguiente, false);
+            manejarBoton(btnAnterior, false);
+
             indiceGlobal = 0;
         }
 
         private void btnAbrir_Click(object sender, EventArgs e)
         {
+
             cargarImagenes();
 
             if (imagenes.Count > 0)
@@ -48,6 +52,18 @@ namespace Boletin_Tema4
                 string ruta = devolverNombreImagen();
 
                 cambiarNombreFormulario(ruta);
+
+                lblInfo.Text = $"Total de imagenes cargadas: {imagenes.Count}";
+
+                manejarBoton(btnSiguiente, true);
+                manejarBoton(btnAnterior, true);
+            }
+            else
+            {
+                lblInfo.Text = "No se encontraron imágenes en el directorio escogido.";
+
+                manejarBoton(btnSiguiente, false);
+                manejarBoton(btnAnterior, false);
             }
         }
 
@@ -57,9 +73,11 @@ namespace Boletin_Tema4
 
             if (fbd.ShowDialog() == DialogResult.OK)
             {
+                limpiarPantalla();
+
+
                 try
                 {
-
                     DirectoryInfo directorio = new DirectoryInfo(fbd.SelectedPath);
 
                     var archivos = directorio.EnumerateFiles();
@@ -72,44 +90,75 @@ namespace Boletin_Tema4
 
                     foreach (FileInfo archivo in archivos)
                     {
-                        string extensionArchivo = archivo.Extension;
-
-                        if (extensionesValidas.Contains(extensionArchivo))
+                        try
                         {
-                            using (var tempImage = Image.FromFile(archivo.FullName))
+                            string extensionArchivo = archivo.Extension;
+
+                            if (extensionesValidas.Contains(extensionArchivo))
                             {
-                                imagenes.Add(new Bitmap(tempImage));
+                                using (var tempImage = Image.FromFile(archivo.FullName))
+                                {
+                                    imagenes.Add(new Bitmap(tempImage));
 
-                                tagsImagenes.Add(new TagImagen(indiceInterno, archivo.Name, archivo.Length));
+                                    tagsImagenes.Add(new TagImagen(indiceInterno, archivo.Name, archivo.Length));
 
-                                indiceInterno++;
+                                    indiceInterno++;
+                                }
                             }
+                        }
+                        catch (ArgumentException)
+                        {
+                            Debug.WriteLine("Error: argumento no válido");
+                        }
+                        catch (PathTooLongException)
+                        {
+                            Debug.WriteLine("Error: ruta demasiado larga");
+                        }
+                        catch (DirectoryNotFoundException)
+                        {
+                            Debug.WriteLine("Error: directorio no encontrado");
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            Debug.WriteLine("Error: archivo no encontrado");
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            Debug.WriteLine("Error: no tienes permisos para leer este recurso");
+                        }
+                        catch (NotSupportedException)
+                        {
+                            Debug.WriteLine("Error: no se pudo leer el recurso por temas de incompatibilidad de tipos");
+                        }
+                        catch (SecurityException)
+                        {
+                            Debug.WriteLine("Error: se ha detecta un problema de seguridad");
+                        }
+                        catch (OutOfMemoryException)
+                        {
+                            Debug.WriteLine("Error: se supero la memoria disponible para leer la imagen.");
+                        }
+                        catch (IOException)
+                        {
+                            Debug.WriteLine("Error: otro tipo de error");
                         }
                     }
                 }
                 catch (ArgumentNullException)
                 {
+                    Debug.WriteLine("Error: argumento null");
+                }
+                catch (ArgumentException)
+                {
                     Debug.WriteLine("Error: argumento no válido");
-                }
-                catch (PathTooLongException)
-                {
-                    Debug.WriteLine("Error: ruta demasiado larga");
-                }
-                catch (DirectoryNotFoundException)
-                {
-                    Debug.WriteLine("Error: directorio no encontrado");
-                }
-                catch (FileNotFoundException)
-                {
-                    Debug.WriteLine("Error: archivo no encontrado");
                 }
                 catch (UnauthorizedAccessException)
                 {
                     Debug.WriteLine("Error: no tienes permisos para leer este recurso");
                 }
-                catch (NotSupportedException)
+                catch (PathTooLongException)
                 {
-                    Debug.WriteLine("Error: no se pudo leer el recurso por temas de incompatibilidad de tipos");
+                    Debug.WriteLine("Error: ruta demasiado larga");
                 }
                 catch (SecurityException)
                 {
@@ -118,8 +167,24 @@ namespace Boletin_Tema4
                 catch (IOException)
                 {
                     Debug.WriteLine("Error: otro tipo de error");
+
                 }
             }
+        }
+
+        public void limpiarPantalla()
+        {
+            panelImagenes.Controls.Clear();
+
+            imagenes.Clear();
+
+            tagsImagenes.Clear();
+
+            pcbImagen.Image = null;
+
+            indiceGlobal = 0;
+
+            lblInfo.Text = "";
         }
 
         public void mostrarImagenesPanel()
@@ -161,19 +226,25 @@ namespace Boletin_Tema4
         {
             PictureBox pcb = sender as PictureBox;
 
-            TagImagen tag = pcb.Tag as TagImagen;
+            if (pcb != null)
+            {
+                TagImagen tag = pcb.Tag as TagImagen;
 
-            int indice = tag.GetIndice();
+                if (tag != null)
+                {
+                    int indice = tag.GetIndiceInterno();
 
-            pcbImagen.Image = imagenes[indice];
+                    pcbImagen.Image = imagenes[indice];
 
-            this.indiceGlobal = indice;
+                    this.indiceGlobal = indice;
 
-            string nombre = tag.GetNombreImagen();
+                    string nombre = tag.GetNombreImagen();
 
-            cambiarNombreFormulario(nombre);
+                    cambiarNombreFormulario(nombre);
 
-            actualizarInfoImagen();
+                    actualizarInfoImagen();
+                }
+            }
         }
 
         public void siguienteImagen(object sender, EventArgs e)
@@ -255,6 +326,11 @@ namespace Boletin_Tema4
             lblInfo.Text = $"Nombre imagen: {nombreImagen}\n" +
                 $"Tamaño: {tamanioImagen:F2} KB \n" +
                 $"Resolucion: {imagen.Size}";
+        }
+
+        public void manejarBoton(Button btn, bool flag)
+        {
+            btn.Enabled = flag;
         }
 
         private void Ejercicio6_FormClosing(object sender, FormClosingEventArgs e)

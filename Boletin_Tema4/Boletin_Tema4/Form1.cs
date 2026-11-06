@@ -62,6 +62,10 @@ namespace Boletin_Tema4
                     ej6.ShowDialog();
                     break;
                 case 6:
+
+                    Ejercicio7 ej7 = new Ejercicio7();
+
+                    ej7.ShowDialog();
                     break;
                 default:
                     break;
